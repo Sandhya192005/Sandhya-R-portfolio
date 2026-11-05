@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandhya R Portfolio</title>
+<meta name="description" content="Sandhya R, Software Developer: Python, FastAPI, React, PostgreSQL, AWS and AI (LLMs, RAG).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Single dark theme by choice: near-black with a maroon cast, maroon-rose accent,
+   a maroon glow behind the hero, glassy cards. Content runs left-aligned in one column. */
+:root {
+  --bg: #0e0809;
+  --surface: rgba(38, 20, 26, 0.55);
+  --surface-solid: #1a0f13;
+  --line: rgba(255, 214, 224, 0.09);
+  --ink: #f5eaee;
+  --muted: #b89ea6;
+  --accent: #d6456f;
+  --accent-deep: #7d1634;
+  --tile: #f8f1f3;
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; color: var(--ink); font: 400 16px/1.65 var(--body);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 520px at 85% -10%, rgba(125, 22, 52, 0.55), transparent 60%),
+    radial-gradient(700px 500px at -10% 30%, rgba(125, 22, 52, 0.22), transparent 60%);
+  background-repeat: no-repeat;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* Nav */
+.nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+  background: rgba(14, 8, 9, 0.72); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.brand { font: 700 18px var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+.brand span { color: var(--accent); }
+.nav ul { list-style: none; display: flex; gap: 26px; }
+.nav ul a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color .2s; }
+.nav ul a:hover { color: var(--ink); }
+@media (max-width: 800px) { .nav ul { display: none; } }
+
+/* Hero */
+.hero { padding: 84px 0 64px; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 500 13px var(--mono); color: var(--muted);
+  border: 1px solid var(--line); background: var(--surface); padding: 6px 12px; border-radius: 999px; }
+.eyebrow i { width: 8px; height: 8px; border-radius: 50%; background: #3ccf7d; box-shadow: 0 0 10px #3ccf7d; }
+.hero h1 { font-size: clamp(44px, 7vw, 76px); font-weight: 700; letter-spacing: -0.035em; margin: 22px 0 8px;
+  background: linear-gradient(100deg, var(--ink) 30%, #e8708f 75%, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .role { font: 600 clamp(20px, 2.6vw, 26px) var(--display); color: var(--ink); margin-bottom: 18px; }
+.hero .summary { color: var(--muted); max-width: 58ch; font-size: 17px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font: 600 15px var(--body);
+  padding: 12px 20px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  transition: border-color .2s, transform .2s, box-shadow .2s; }
+.btn:hover { border-color: rgba(214, 69, 111, 0.6); transform: translateY(-1px); }
+.btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-deep)); border-color: transparent;
+  box-shadow: 0 8px 28px rgba(214, 69, 111, 0.28); }
+.btn.primary:hover { box-shadow: 0 10px 34px rgba(214, 69, 111, 0.42); }
+
+.code { background: var(--surface-solid); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(214,69,111,.08); }
+.code-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.code-bar i { width: 11px; height: 11px; border-radius: 50%; background: #3a2a2f; }
+.code-bar i:first-child { background: var(--accent); }
+.code-bar span { margin-left: 10px; font: 400 12px var(--mono); color: var(--muted); }
+.code pre { margin: 0; padding: 20px 22px; font: 400 13.5px/1.75 var(--mono); color: var(--ink); overflow-x: auto; }
+.k { color: #e8708f; } .s { color: #f2c69b; } .f { color: #9fc8ff; } .c { color: #7d6a70; }
+@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 56px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.fact strong { display: block; font: 700 30px/1.1 var(--display); font-variant-numeric: tabular-nums; color: var(--ink); }
+.fact span { font-size: 14px; color: var(--muted); }
+@media (max-width: 640px) { .facts { grid-template-columns: 1fr 1fr; } }
+
+/* Sections */
+section.block { padding: 72px 0; }
+.head { margin-bottom: 36px; }
+.head .tag { font: 500 13px var(--mono); color: var(--accent); }
+.head h2 { font-size: clamp(30px, 4vw, 40px); font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; }
+.head p { color: var(--muted); max-width: 62ch; margin-top: 10px; }
+
+/* Skills */
+.skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.group { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+.group.wide { grid-column: 1 / -1; }
+.group h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--ink); }
+.chips { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 10px; }
+.chip { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px;
+  border: 1px solid var(--line); background: rgba(255,255,255,0.02); transition: border-color .2s, transform .2s, background .2s; }
+.chip:hover { border-color: rgba(214, 69, 111, 0.55); background: rgba(214, 69, 111, 0.07); transform: translateY(-2px); }
+.chip .ic { flex: none; width: 38px; height: 38px; border-radius: 10px; background: var(--tile); display: grid; place-items: center; }
+.chip img { width: 24px; height: 24px; object-fit: contain; }
+.chip span { font-size: 14px; font-weight: 500; line-height: 1.3; }
+@media (max-width: 800px) { .skill-groups { grid-template-columns: 1fr; } }
+
+/* Experience */
+.timeline { list-style: none; position: relative; display: grid; gap: 18px; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(var(--accent), rgba(214,69,111,0.05)); }
+.job { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.job::before { content: ""; position: absolute; left: -27px; top: 28px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent); }
+.job.current::before { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+.job-top { display: flex; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; align-items: baseline; }
+.job h3 { font-size: 19px; font-weight: 600; }
+.job .when { font: 400 13px var(--mono); color: var(--muted); }
+.job .when b { font-weight: 500; color: var(--accent); }
+.job .org { color: #e8a0b4; font-weight: 500; margin: 2px 0 12px; }
+.job ul { padding-left: 18px; display: grid; gap: 4px; color: var(--muted); max-width: 78ch; }
+
+.tags { list-style: none !important; padding: 0 !important; display: flex !important; flex-wrap: wrap; gap: 6px !important; margin-top: 16px; }
+.tags li { display: inline-flex; align-items: center; gap: 6px; font: 500 12.5px/1 var(--body); color: var(--ink);
+  padding: 5px 9px 5px 5px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+.tags li.plain { padding-left: 9px; }
+.tags .mini { width: 20px; height: 20px; border-radius: 5px; background: var(--tile); display: grid; place-items: center; }
+.tags .mini img { width: 14px; height: 14px; object-fit: contain; }
+
+/* Projects: equal cards, three per row */
+.featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px;
+  display: flex; flex-direction: column; gap: 12px; transition: border-color .25s, transform .25s, box-shadow .25s; }
+.proj:hover { border-color: rgba(214,69,111,0.45); transform: translateY(-3px); box-shadow: 0 20px 50px rgba(125,22,52,0.25); }
+.proj .kind { font: 500 12px var(--mono); color: var(--accent); }
+.proj h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.proj .lead { color: var(--ink); opacity: .92; font-size: 15px; }
+.proj ul.points { padding-left: 18px; display: grid; gap: 4px; color: var(--muted); font-size: 14px; }
+.proj .tags { margin-top: 4px; }
+.proj .foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font: 600 14px var(--body); }
+.proj .foot a { text-decoration: none; }
+.proj .foot a:hover { text-decoration: underline; }
+@media (max-width: 1000px) { .featured { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 660px) { .featured { grid-template-columns: 1fr; } }
+
+/* Education */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.card h3 { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; padding-top: 0; }
+.row b { font-weight: 600; }
+.row .meta { font: 400 13px var(--mono); color: var(--accent); white-space: nowrap; }
+.row small { grid-column: 1 / -1; color: var(--muted); font-size: 14px; }
+@media (max-width: 800px) { .two { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact-box { background: linear-gradient(135deg, rgba(125,22,52,0.55), rgba(38,20,26,0.6));
+  border: 1px solid rgba(214,69,111,0.3); border-radius: 22px; padding: 44px;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.contact-box h2 { font-size: clamp(30px, 4vw, 42px); font-weight: 700; letter-spacing: -0.02em; }
+.contact-box p { color: #dcc4cb; margin-top: 12px; max-width: 46ch; }
+.links { list-style: none; display: grid; gap: 10px; }
+.links a { display: grid; grid-template-columns: 42px 1fr; gap: 4px 14px; align-items: center; text-decoration: none; color: var(--ink);
+  background: rgba(14,8,9,0.55); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; transition: border-color .2s, transform .2s; }
+.links a:hover { border-color: var(--accent); transform: translateX(3px); }
+.links .ico { grid-row: span 2; width: 42px; height: 42px; border-radius: 10px; background: var(--tile); display: grid; place-items: center; }
+.links .ico img { width: 24px; height: 24px; }
+.links span.lbl { font: 500 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; align-self: end; }
+.links b { font-weight: 500; overflow-wrap: anywhere; align-self: start; line-height: 1.35; }
+.btn .bico { width: 20px; height: 20px; border-radius: 5px; background: var(--tile); display: grid; place-items: center; }
+.btn .bico img { width: 14px; height: 14px; }
+@media (max-width: 800px) { .contact-box { grid-template-columns: 1fr; padding: 28px; } }
+
+footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 24px; }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top">Sandhya<span>.</span></a>
+    <ul>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><i aria-hidden="true"></i>Open to internships &amp; entry-level roles</p>
+        <h1>Sandhya R</h1>
+        <p class="role">Software Developer</p>
+        <p class="summary">
+          I build full-stack and AI-powered applications with Python, FastAPI, React and PostgreSQL.
+          I'm a Full-Stack Developer Intern at Finstein Advizory Service LLP, where I build and test
+          backend services and REST APIs. I also work with AWS, Redis, Docker, LLMs and RAG, and with
+          Databricks and PySpark for data work.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn" href="https://drive.google.com/uc?export=download&amp;id=1qbEbWawTzBk9AhB-EVdrKcCmMvU31dZW" target="_blank" rel="noopener">Download resume</a>
+          <a class="btn" href="https://github.com/Sandhya192005">{{ico:github|bico}}GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/sandhya192005">{{ico:linkedin|bico}}LinkedIn</a>
+          <a class="btn" href="mailto:sandhyasubha192005@gmail.com">{{ico:email|bico}}Email</a>
+        </div>
+      </div>
+      <div class="code" aria-label="About me as a FastAPI endpoint">
+        <div class="code-bar"><i></i><i></i><i></i><span>main.py</span></div>
+<pre><span class="k">from</span> fastapi <span class="k">import</span> FastAPI
+app = <span class="f">FastAPI</span>()
+
+<span class="f">@app.get</span>(<span class="s">"/sandhya"</span>)
+<span class="k">def</span> <span class="f">about</span>():
+    <span class="k">return</span> {
+        <span class="s">"role"</span>: <span class="s">"Software Developer"</span>,
+        <span class="s">"now"</span>: <span class="s">"Intern @ Finstein"</span>,
+        <span class="s">"stack"</span>: [<span class="s">"Python"</span>, <span class="s">"FastAPI"</span>,
+                  <span class="s">"React"</span>, <span class="s">"PostgreSQL"</span>],
+        <span class="s">"ai"</span>: [<span class="s">"LLMs"</span>, <span class="s">"RAG"</span>, <span class="s">"Embeddings"</span>],
+        <span class="s">"graduating"</span>: <span class="f">2027</span>,
+    }  <span class="c"># 200 OK</span></pre>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><strong>8.26</strong><span>CGPA out of 10</span></div>
+      <div class="fact"><strong>4</strong><span>Internships</span></div>
+      <div class="fact"><strong>11</strong><span>Public repositories</span></div>
+      <div class="fact"><strong>45+</strong><span>Tools &amp; technologies</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="head">
+      <p class="tag">// skills</p>
+      <h2>Tech stack</h2>
+      <p>The languages, frameworks and tools I use, grouped by area.</p>
+    </div>
+    <div class="skill-groups">
+      <div class="group">
+        <h3>Programming Languages</h3>
+        <ul class="chips">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul>
+      </div>
+      <div class="group">
+        <h3>Frontend</h3>
+        <ul class="chips">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul>
+      </div>
+      <div class="group">
+        <h3>Backend</h3>
+        <ul class="chips">{{chip:fastapi|FastAPI}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:django|Django}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:django|Django ORM}}</ul>
+      </div>
+      <div class="group">
+        <h3>Database &amp; Caching</h3>
+        <ul class="chips">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector Databases}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul>
+      </div>
+      <div class="group wide">
+        <h3>Cloud, CI/CD &amp; DevOps</h3>
+        <ul class="chips">{{chip:aws|AWS (S3, RDS)}}{{chip:docker|Docker}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}</ul>
+      </div>
+      <div class="group">
+        <h3>AI Technologies</h3>
+        <ul class="chips">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:embeddings|Embeddings}}{{chip:openai|OpenAI API}}</ul>
+      </div>
+      <div class="group">
+        <h3>Testing &amp; Automation</h3>
+        <ul class="chips">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}</ul>
+      </div>
+      <div class="group">
+        <h3>Developer Tools &amp; Workflow Automation</h3>
+        <ul class="chips">{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul>
+      </div>
+      <div class="group">
+        <h3>Data Engineering</h3>
+        <ul class="chips">{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul>
+      </div>
+      <div class="group wide">
+        <h3>Core Concepts</h3>
+        <ul class="chips">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC Architecture}}{{chip:http|HTTP Methods}}{{chip:restfund|REST API Fundamentals}}{{chip:cicd|CI/CD Fundamentals}}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="head">
+      <p class="tag">// experience</p>
+      <h2>Work experience</h2>
+      <p>Four internships covering backend engineering, full-stack web development, enterprise IT and data analytics.</p>
+    </div>
+    <ol class="timeline">
+      <li class="job current">
+        <div class="job-top"><h3>Full-Stack Developer Intern</h3><span class="when">July 2026 – <b>Present</b></span></div>
+        <p class="org">Finstein Advizory Service LLP</p>
+        <ul>
+          <li>Develop and test backend services using Python and FastAPI.</li>
+          <li>Build and integrate REST APIs that connect the frontend and backend.</li>
+          <li>Use PostgreSQL for backend data storage and querying across projects.</li>
+          <li>Work hands-on with data engineering workflows in Databricks and PySpark.</li>
+          <li>Take part in development and testing workflows across the application lifecycle.</li>
+        </ul>
+        <ul class="tags">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:databricks|Databricks}}{{tag:pyspark|PySpark}}</ul>
+      </li>
+      <li class="job">
+        <div class="job-top"><h3>MERN Stack Development Intern</h3><span class="when">November 2025</span></div>
+        <p class="org">Altruisty</p>
+        <ul>
+          <li>Built frontend components in React.js.</li>
+          <li>Wrote server-side code with Node.js and Express.js, with MongoDB for storage.</li>
+          <li>Integrated REST APIs between frontend and backend, using Git and GitHub for version control.</li>
+        </ul>
+        <ul class="tags">{{tag:react|React.js}}{{tag:nodejs|Node.js}}{{tag:express|Express.js}}{{tag:mongodb|MongoDB}}</ul>
+      </li>
+      <li class="job">
+        <div class="job-top"><h3>Computer Science Intern</h3><span class="when">June 2025</span></div>
+        <p class="org">Chennai Metro Rail Limited</p>
+        <ul>
+          <li>Worked with IT systems for data management, software monitoring and troubleshooting.</li>
+          <li>Gained practical exposure to enterprise networking, relational databases and process automation.</li>
+        </ul>
+      </li>
+      <li class="job">
+        <div class="job-top"><h3>Data Analytics Intern</h3><span class="when">May 2025</span></div>
+        <p class="org">Tata Virtual Internship</p>
+        <ul>
+          <li>Analysed business datasets and drew insights using data visualisation techniques.</li>
+          <li>Built dashboards and reports to support data-driven decisions.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="projects">
+  <div class="wrap">
+    <div class="head">
+      <p class="tag">// projects</p>
+      <h2>Projects</h2>
+      <p>Ten projects, from AI-powered full-stack apps to small frontend tools. Each one links to its source code.</p>
+    </div>
+
+    <div class="featured">
+      <article class="proj">
+        <p class="kind">Team project · AI · Full-stack</p>
+        <h3>Employee Wellbeing &amp; Activity Monitoring</h3>
+        <p class="lead">A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
+        <ul class="points">
+          <li>Built the ingest server in FastAPI with PostgreSQL, Alembic and Docker.</li>
+          <li>Fixed a zip-bomb attack and race conditions in enrollment and rate limiting.</li>
+          <li>Added wellbeing popups and goal-aware distraction reminders.</li>
+        </ul>
+        <ul class="tags">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:docker|Docker}}{{tag:pytest|pytest}}{{tag:githubactions|GitHub Actions}}</ul>
+        <p class="foot"><a href="https://github.com/Suba-kumar09/health-agent">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">AI · Full-stack</p>
+        <h3>Food &amp; Nutrition Tracking System</h3>
+        <p class="lead">An AI food tracker that estimates calories from a meal photo and gives personalised nutrition advice.</p>
+        <ul class="points">
+          <li>OpenAI vision estimates calories, protein and fat from a meal photo.</li>
+          <li>Calculates BMI, BMR and a daily water goal from the user's profile.</li>
+          <li>Stores photos in AWS S3 and the database on AWS RDS.</li>
+        </ul>
+        <ul class="tags">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:openai|OpenAI API}}{{tag:aws|AWS S3 / RDS}}{{tag:react|React}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/Food-Agent">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Full-stack · Generative design</p>
+        <h3>AI Home Layout</h3>
+        <p class="lead">Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
+        <ul class="points">
+          <li>Generates plans from geometry and rules, with Vastu zoning and parking.</li>
+          <li>Three.js 3D walkthrough and a drag-to-edit layout editor.</li>
+          <li>Versioned plan history, JWT auth, and PNG and PDF export.</li>
+        </ul>
+        <ul class="tags">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:threejs|Three.js}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/home-layout">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Full-stack · Background jobs</p>
+        <h3>MediConnect</h3>
+        <p class="lead">A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
+        <ul class="points">
+          <li>Doctor search by department, hospital and city, with live free slots.</li>
+          <li>Celery sends booking, confirmation and reminder emails.</li>
+          <li>Redis queue and slot cache. The whole stack runs in Docker Compose.</li>
+        </ul>
+        <ul class="tags">{{tag:django|Django}}{{tag:nextjs|Next.js}}{{tag:postgresql|PostgreSQL}}{{tag:celery|Celery}}{{tag:redis|Redis}}{{tag:docker|Docker}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/MediConnect">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">AI · Workflow automation</p>
+        <h3>Cargo Email Automation</h3>
+        <p class="lead">An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
+        <ul class="points">
+          <li>Sorts incoming Outlook mail into cargo updates and everything else.</li>
+          <li>Pulls containers, vessels and ETAs into a master Excel table.</li>
+          <li>A person approves every customer email before it is sent.</li>
+        </ul>
+        <ul class="tags">{{tag:n8n|n8n}}{{tag:llm|Claude AI}}<li class="plain">Outlook</li><li class="plain">Excel 365</li></ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/Cargo-Email-Automation">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Frontend · Web app</p>
+        <h3>Book Swapper</h3>
+        <p class="lead">A web app for listing and finding books to sell, swap, borrow or donate.</p>
+        <ul class="points">
+          <li>Search with filters and book detail pages with location info.</li>
+          <li>Send and track swap and borrow requests.</li>
+          <li>Favourites, star ratings and a light/dark theme.</li>
+        </ul>
+        <ul class="tags">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/book-swapper">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Frontend · Personal finance</p>
+        <h3>Budget Tracker</h3>
+        <p class="lead">A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
+        <ul class="points">
+          <li>Add, edit and delete transactions by category.</li>
+          <li>Monthly budget for each category with progress tracking.</li>
+          <li>Dashboard with spending stats and charts.</li>
+        </ul>
+        <ul class="tags">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}<li class="plain">Recharts</li></ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/budget-tracker">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Frontend · Web app</p>
+        <h3>Product Review System</h3>
+        <p class="lead">A login-protected app for adding products with a star rating and a written review.</p>
+        <ul class="points">
+          <li>Sign-up and login with SHA-256 hashed passwords.</li>
+          <li>Live search by product name or details.</li>
+          <li>Responsive card layout with no frameworks.</li>
+        </ul>
+        <ul class="tags">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/product-review-system">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Frontend · Web app</p>
+        <h3>Donor List Management</h3>
+        <p class="lead">A donor management app for keeping a searchable list of donors and what they donated.</p>
+        <ul class="points">
+          <li>Sign-up and login with a protected home page.</li>
+          <li>Add, edit and delete donor records.</li>
+          <li>Search donors by the organ or item donated.</li>
+        </ul>
+        <ul class="tags">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/donor-list-management">View source on GitHub →</a></p>
+      </article>
+
+      <article class="proj">
+        <p class="kind">Utility · Web app</p>
+        <h3>CGPA Calculator</h3>
+        <p class="lead">A browser tool that works out semester GPAs and an overall CGPA for an 8-semester degree.</p>
+        <ul class="points">
+          <li>Subjects and credits preloaded for each semester.</li>
+          <li>Converts letter grades (O to D) into grade points.</li>
+          <li>Credit-weighted CGPA, with a matching Python notebook.</li>
+        </ul>
+        <ul class="tags">{{tag:javascript|JavaScript}}{{tag:html|HTML}}{{tag:css|CSS}}{{tag:python|Python}}</ul>
+        <p class="foot"><a href="https://github.com/Sandhya192005/CGPA-calculator">View source on GitHub →</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="education">
+  <div class="wrap">
+    <div class="head">
+      <p class="tag">// education</p>
+      <h2>Education &amp; certifications</h2>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>Education</h3>
+        <div class="row">
+          <b>B.E. Computer Science and Engineering</b><span class="meta">2023 – 2027</span>
+          <small>Velammal Engineering College · CGPA 8.26 / 10</small>
+        </div>
+        <div class="row">
+          <b>Higher Secondary (Class XII)</b><span class="meta">2023</span>
+          <small>Don Bosco Matriculation Hr. Sec. School · 79.9% (479 / 600)</small>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Certifications &amp; awards</h3>
+        <div class="row"><b>Database Management Systems</b><span class="meta">NPTEL</span></div>
+        <div class="row"><b>Python for Data Science</b><span class="meta">NPTEL</span></div>
+        <div class="row">
+          <b>3rd Prize, Technical Paper Presentation</b><span class="meta">VEC</span>
+          <small>Paper on an e-commerce website, Velammal Engineering College</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div>
+        <p class="tag" style="font:500 13px var(--mono);color:#f2a7bc">// contact</p>
+        <h2 style="margin-top:8px">Let's build something together</h2>
+        <p>I'm looking for internships and entry-level roles in backend, full-stack or AI engineering. Email is the fastest way to reach me.</p>
+      </div>
+      <ul class="links">
+        <li><a href="mailto:sandhyasubha192005@gmail.com">{{ico:email|ico}}<span class="lbl">Email</span><b>sandhyasubha192005@gmail.com</b></a></li>
+        <li><a href="https://linkedin.com/in/sandhya192005">{{ico:linkedin|ico}}<span class="lbl">LinkedIn</span><b>linkedin.com/in/sandhya192005</b></a></li>
+        <li><a href="https://github.com/Sandhya192005">{{ico:github|ico}}<span class="lbl">GitHub</span><b>github.com/Sandhya192005</b></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Sandhya R</span>
+    <span>Software Developer · Chennai</span>
+  </div>
+</footer>
+</body>
+</html>
