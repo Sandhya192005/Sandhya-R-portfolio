@@ -28,7 +28,7 @@ icons = {
  "swagger": DV+"swagger/swagger-original.svg", "postman": DV+"postman/postman-original.svg", "n8n": SI+"n8n.svg",
  "oop": LU+"blocks.svg", "dbms": LU+"database-zap.svg", "mvc": LU+"layers.svg", "http": LU+"arrow-left-right.svg",
  "restfund": LU+"globe.svg", "cicd": LU+"infinity.svg",
- "huggingface": SI+"huggingface.svg", "langchain": SI+"langchain.svg",
+ "huggingface": SI+"huggingface.svg", "langchain": SI+"langchain.svg", "ollama": SI+"ollama.svg",
  "databricks": SI+"databricks.svg", "pyspark": DV+"apachespark/apachespark-original.svg",
  "linkedin": DV+"linkedin/linkedin-original.svg", "email": LU+"mail.svg",
 }

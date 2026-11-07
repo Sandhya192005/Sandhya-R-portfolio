@@ -2,7 +2,7 @@
 
 Personal portfolio for Sandhya R, Software Developer (Python, FastAPI, React, PostgreSQL, AWS, LLMs/RAG).
 
-The page is `index.html` plus the `assets/` folder (styles, scripts and the profile photo). It was redesigned with the Taste Skill design system: a light warm theme with a maroon accent, the Hanken Grotesk font, and one section per screen. Skill icons are embedded in the page, and the resume links to Google Drive.
+The page is `index.html` plus the `assets/` folder (styles, scripts and the profile photo). It was redesigned with the Taste Skill design system: a light warm theme with a maroon accent, the Hanken Grotesk font, and one section per screen. Skill icons are embedded in the page, and the resume is `assets/Sandhya-R-Resume.pdf` (replace that file to update it).
 
 ## Sections
 
