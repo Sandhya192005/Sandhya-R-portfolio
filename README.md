@@ -2,11 +2,11 @@
 
 Personal portfolio for Sandhya R, Software Developer (Python, FastAPI, React, PostgreSQL, AWS, LLMs/RAG).
 
-It's a single self-contained page: plain HTML and CSS, no frameworks and no build step needed to view it. All skill icons are embedded in the page, and the resume download links to Google Drive, so `index.html` is the only file to deploy.
+The page is `index.html` plus the `assets/` folder (styles, scripts and the profile photo). It was redesigned with the Taste Skill design system: a light warm theme with a maroon accent, the Hanken Grotesk font, and one section per screen. Skill icons are embedded in the page, and the resume links to Google Drive.
 
 ## Sections
 
-- Tech stack: 48 skills grouped by area, each with its icon
+- Skills: 52 skills in eight groups, each with its icon
 - Work experience: Finstein Advizory Service LLP, Altruisty, Chennai Metro Rail Limited, Tata Virtual Internship
 - Projects: 10 projects with highlights, tech tags and source links
 - Education, certifications and contact
@@ -19,11 +19,11 @@ Edit `build/template.html`, then regenerate `index.html`:
 python build/build.py
 ```
 
-`build/icons.json` holds the icons as embedded images. To add an icon, add its URL to `build/icons.py` and run `python build/icons.py` once.
+`build/icons.json` holds the icons as embedded images. Page styles specific to this site sit in the second `<style>` block of the template; the shared design system lives in `assets/`. To add an icon, add its URL to `build/icons.py` and run `python build/icons.py` once.
 
 ## Deploying
 
-Upload `index.html` to Netlify (drag it onto the site's Deploys tab), or turn on GitHub Pages for this repo's `main` branch.
+Deploy `index.html` together with the `assets/` folder: drag the whole project folder onto Netlify's Deploys tab, or turn on GitHub Pages for this repo's `main` branch.
 
 ## Contact
 

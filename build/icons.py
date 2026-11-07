@@ -22,15 +22,17 @@ icons = {
  "git": DV+"git/git-original.svg", "github": DV+"github/github-original.svg",
  "githubactions": DV+"githubactions/githubactions-original.svg", "jenkins": DV+"jenkins/jenkins-original.svg",
  "docker": DV+"docker/docker-original.svg",
+ "kubernetes": DV+"kubernetes/kubernetes-original.svg", "terraform": DV+"terraform/terraform-original.svg",
  "llm": LU+"brain-circuit.svg", "rag": LU+"file-search.svg", "embeddings": LU+"chart-scatter.svg",
  "openai": LU+"sparkles.svg",
  "swagger": DV+"swagger/swagger-original.svg", "postman": DV+"postman/postman-original.svg", "n8n": SI+"n8n.svg",
  "oop": LU+"blocks.svg", "dbms": LU+"database-zap.svg", "mvc": LU+"layers.svg", "http": LU+"arrow-left-right.svg",
  "restfund": LU+"globe.svg", "cicd": LU+"infinity.svg",
+ "huggingface": SI+"huggingface.svg", "langchain": SI+"langchain.svg",
  "databricks": SI+"databricks.svg", "pyspark": DV+"apachespark/apachespark-original.svg",
  "linkedin": DV+"linkedin/linkedin-original.svg", "email": LU+"mail.svg",
 }
-brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621"}
+brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621", "huggingface": "#FFD21E", "langchain": "#1C3C3C"}
 out, bad = {}, []
 for k, url in icons.items():
     try:
