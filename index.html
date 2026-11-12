@@ -77,6 +77,10 @@
 .proj > p { max-width: none; }
 .proj > .tech { padding-top: var(--s-1); }
 .proj > .link { align-self: start; }
+/* with pictures the project sections can run taller than two screens, so they grow instead of clipping */
+#projects, #more-projects { height: auto; min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
+#projects > .wrap, #more-projects > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+.proj > .proj__shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: var(--r-md); border: 1px solid var(--line); margin-bottom: var(--s-2); }
 #education .card { gap: var(--s-5); }
 #education .rows__name { font-size: var(--t-lead); }
 .points { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 2px; }
@@ -201,6 +205,7 @@
         </div>
         <div class="grid">
           <article class="card proj span-6">
+            <img class="proj__shot" src="assets/img/projects/employee-wellbeing.svg" alt="Employee wellbeing activity dashboard" width="640" height="400" loading="lazy">
             <p class="t-label muted">Team project · AI · Full-stack</p>
             <h3>Employee wellbeing and activity monitoring</h3>
             <p>A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
@@ -213,6 +218,7 @@
             <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
           </article>
           <article class="card proj span-6">
+            <img class="proj__shot" src="assets/img/projects/food-nutrition.svg" alt="Meal photo with AI calorie estimate" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Full-stack</p>
             <h3>Food and nutrition tracking system</h3>
             <p>An AI food tracker that estimates calories from a meal photo and gives personalised nutrition advice.</p>
@@ -228,6 +234,7 @@
       </div>
       <div class="grid">
         <article class="card proj span-6">
+          <img class="proj__shot" src="assets/img/projects/home-layout.svg" alt="Generated floor plan with cost estimate" width="640" height="400" loading="lazy">
           <p class="t-label muted">Full-stack · Generative design</p>
           <h3>AI home layout</h3>
           <p>Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
@@ -240,6 +247,7 @@
           <a class="link" href="https://github.com/Sandhya192005/home-layout">See the source on GitHub</a>
         </article>
         <article class="card proj span-6">
+          <img class="proj__shot" src="assets/img/projects/mediconnect.svg" alt="Doctor search with available slots" width="640" height="400" loading="lazy">
           <p class="t-label muted">Full-stack · Background jobs</p>
           <h3>MediConnect</h3>
           <p>A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
@@ -263,6 +271,7 @@
         </div>
         <div class="grid">
           <article class="card proj span-4">
+            <img class="proj__shot" src="assets/img/projects/cargo-email.svg" alt="Cargo email automation workflow" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Workflow automation</p>
             <h3>Cargo email automation</h3>
             <p>An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
@@ -275,6 +284,7 @@
             <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
+            <img class="proj__shot" src="assets/img/projects/book-swapper.svg" alt="Book listings with swap and borrow filters" width="640" height="400" loading="lazy">
             <p class="t-label muted">Frontend · Web app</p>
             <h3>Book Swapper</h3>
             <p>A web app for listing and finding books to sell, swap, borrow or donate.</p>
@@ -287,6 +297,7 @@
             <a class="link" href="https://github.com/Sandhya192005/book-swapper">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
+            <img class="proj__shot" src="assets/img/projects/budget-tracker.svg" alt="Monthly budget and recent transactions" width="640" height="400" loading="lazy">
             <p class="t-label muted">Frontend · Personal finance</p>
             <h3>Budget tracker</h3>
             <p>A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
@@ -302,6 +313,7 @@
       </div>
       <div class="grid">
         <article class="card proj span-4">
+          <img class="proj__shot" src="assets/img/projects/product-review.svg" alt="Product cards with star ratings" width="640" height="400" loading="lazy">
           <p class="t-label muted">Frontend · Web app</p>
           <h3>Product review system</h3>
           <p>A login-protected app for adding products with a star rating and a written review.</p>
@@ -314,6 +326,7 @@
           <a class="link" href="https://github.com/Sandhya192005/product-review-system">See the source on GitHub</a>
         </article>
         <article class="card proj span-4">
+          <img class="proj__shot" src="assets/img/projects/donor-list.svg" alt="Searchable donor table" width="640" height="400" loading="lazy">
           <p class="t-label muted">Frontend · Web app</p>
           <h3>Donor list management</h3>
           <p>A donor management app for keeping a searchable list of donors and what they donated.</p>
@@ -326,6 +339,7 @@
           <a class="link" href="https://github.com/Sandhya192005/donor-list-management">See the source on GitHub</a>
         </article>
         <article class="card proj span-4">
+          <img class="proj__shot" src="assets/img/projects/cgpa.svg" alt="Semester grades and overall CGPA" width="640" height="400" loading="lazy">
           <p class="t-label muted">Utility · Web app</p>
           <h3>CGPA calculator</h3>
           <p>A browser tool that works out semester GPAs and an overall CGPA for an 8-semester degree.</p>
