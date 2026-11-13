@@ -84,6 +84,12 @@
 #education .card { gap: var(--s-5); }
 #education .rows__name { font-size: var(--t-lead); }
 .points { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 2px; }
+
+/* hero title types out each role in turn; with reduced motion it stays on the first */
+.typed::after { content: ""; display: inline-block; width: 0.06em; height: 0.9em; margin-left: 0.06em; vertical-align: -0.08em;
+  background: var(--p-accent); animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .typed::after { animation: none; } }
 </style>
 </head>
 <body>
@@ -115,7 +121,7 @@
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-6">
         <p class="hero__kicker">Open to entry-level and fresher roles</p>
-        <h1 id="hero-h">Sandhya R, software developer</h1>
+        <h1 id="hero-h" aria-label="Sandhya R, Software Developer and DevOps Engineer">Sandhya R,<br><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer">Software Developer</span></h1>
         <p class="hero__lead">I build backend services and AI apps in Chennai with Python, FastAPI, React and PostgreSQL. Full-Stack Developer Intern at Finstein Advizory since July 2026.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="mailto:sandhyasubha192005@gmail.com">Email me<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
@@ -145,12 +151,14 @@
       <ul class="rows cols">
         <li><span class="rows__name">Languages</span><ul class="tech">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul></li>
         <li><span class="rows__name">Frontend</span><ul class="tech">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul></li>
-        <li><span class="rows__name">Backend</span><ul class="tech">{{chip:fastapi|FastAPI}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:django|Django}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:django|Django ORM}}</ul></li>
-        <li><span class="rows__name">Databases and caching</span><ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul></li>
-        <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:aws|AWS (S3, RDS)}}{{chip:docker|Docker}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}</ul></li>
-        <li><span class="rows__name">AI and data engineering</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:embeddings|Embeddings}}{{chip:openai|OpenAI API}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul></li>
-        <li><span class="rows__name">Testing and developer tools</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}</ul></li>
+        <li><span class="rows__name">Backend</span><ul class="tech">{{chip:fastapi|FastAPI}}{{chip:django|Django}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}</ul></li>
+        <li><span class="rows__name">Databases and caching</span><ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:django|Django ORM}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul></li>
+        <li><span class="rows__name">Testing and automation</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}</ul></li>
+        <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:linux|Linux (Ubuntu)}}{{chip:aws|AWS (S3, IAM, EC2, RDS)}}{{chip:cicd|CI/CD}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}{{chip:docker|Docker}}{{chip:docker|Docker Compose}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}</ul></li>
+        <li><span class="rows__name">AI technologies</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:ollama|Ollama}}{{chip:embeddings|Embeddings}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:openai|OpenAI API}}</ul></li>
+        <li><span class="rows__name">Developer tools and workflow automation</span><ul class="tech">{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul></li>
         <li><span class="rows__name">Core concepts</span><ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul></li>
+        <li><span class="rows__name">Data engineering</span><ul class="tech">{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul></li>
       </ul>
     </div>
   </section>
@@ -164,11 +172,11 @@
         <li class="job">
           <div class="stack-2"><h3>Full-Stack Developer Intern</h3><p>Finstein Advizory Service LLP<br>July 2026 to present</p></div>
                       <ul class="duties">
-              <li>Develop and test backend services using Python and FastAPI.</li>
-              <li>Build and integrate REST APIs that connect the frontend and backend.</li>
-              <li>Use PostgreSQL for backend data storage and querying across projects.</li>
-              <li>Work hands-on with data engineering workflows in Databricks and PySpark.</li>
-              <li>Take part in development and testing workflows across the application lifecycle.</li>
+              <li>Developing and testing backend services using Python and FastAPI.</li>
+              <li>Building and integrating REST APIs for frontend-backend communication.</li>
+              <li>Working with PostgreSQL for backend data storage and querying across projects.</li>
+              <li>Gaining hands-on exposure to data engineering workflows using Databricks and PySpark.</li>
+              <li>Working with development and testing workflows as part of application development.</li>
             </ul>
         </li>
         <li class="job">
@@ -210,11 +218,11 @@
             <h3>Employee wellbeing and activity monitoring</h3>
             <p>A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
             <ul class="points">
-              <li>Built the ingest server in FastAPI with PostgreSQL, Alembic and Docker.</li>
-              <li>Fixed a zip-bomb attack and race conditions in enrollment and rate limiting.</li>
-              <li>Added wellbeing popups and goal-aware distraction reminders.</li>
+              <li>Activity monitoring with encrypted local storage, automatic sync and retry handling.</li>
+              <li>FastAPI and PostgreSQL APIs for activity tracking, employee dashboards and AI wellbeing reminders.</li>
+              <li>Compared 2 LLMs (Qwen 3 and OpenAI) on identical prompts and chose OpenAI, with 95% positive evaluations.</li>
             </ul>
-            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:docker|Docker}}{{tag:pytest|pytest}}{{tag:githubactions|GitHub Actions}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
+            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:docker|Docker}}{{tag:pytest|pytest}}{{tag:githubactions|GitHub Actions}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
             <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
@@ -223,24 +231,24 @@
             <h3>Food and nutrition tracking system</h3>
             <p>An AI food tracker that estimates calories from a meal photo and gives personalised nutrition advice.</p>
             <ul class="points">
-              <li>OpenAI vision estimates calories, protein and fat from a meal photo.</li>
-              <li>Calculates BMI, BMR and a daily water goal from the user's profile.</li>
-              <li>Stores photos in AWS S3 and the database on AWS RDS.</li>
+              <li>FastAPI APIs for login, meal tracking, food image analysis and water tracking, with PostgreSQL and AWS S3.</li>
+              <li>Tested the image analysis: 75% of calorie estimates were satisfactory.</li>
+              <li>Automated, tested meal and water reminders.</li>
             </ul>
-            <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3 / RDS}}<li class="plain">Boto3</li>{{tag:react|React}}</ul>
+            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3 / RDS}}<li class="plain">Boto3</li>{{tag:react|React}}</ul>
             <a class="link" href="https://github.com/Sandhya192005/Food-Agent">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/cargo-email.svg" alt="Cargo email automation workflow" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Workflow automation</p>
-            <h3>Cargo email automation</h3>
+            <h3>Cargo shipment email automation</h3>
             <p>An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
             <ul class="points">
-              <li>Sorts incoming Outlook mail into cargo updates and everything else.</li>
-              <li>Pulls containers, vessels and ETAs into a master Excel table.</li>
-              <li>A person approves every customer email before it is sent.</li>
+              <li>Monitors and processes incoming cargo shipment emails from Microsoft Outlook.</li>
+              <li>Extracts customer names, container numbers, ports, vessels, ETD, ETA and shipment status.</li>
+              <li>Matches customers against master Excel records and builds per-customer reports, cutting manual work by 82%.</li>
             </ul>
-            <ul class="tech">{{tag:n8n|n8n}}{{tag:llm|Claude AI}}<li class="plain">Outlook</li><li class="plain">Excel 365</li></ul>
+            <ul class="tech">{{tag:n8n|n8n}}{{tag:llm|Claude AI}}<li class="plain">Outlook</li><li class="plain">Excel 365</li><li class="plain">OneDrive</li></ul>
             <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
           </article>
         </div>
@@ -408,5 +416,24 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
+<script>
+// types and deletes each role in the hero title in turn
+(() => {
+  const el = document.querySelector(".typed");
+  if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const words = el.dataset.words.split("|");
+  let w = 0, n = words[0].length, deleting = true;
+  const tick = () => {
+    const word = words[w];
+    n += deleting ? -1 : 1;
+    el.textContent = word.slice(0, n);
+    let wait = deleting ? 45 : 95;
+    if (!deleting && n === word.length) { deleting = true; wait = 2200; }
+    else if (deleting && n === 0) { deleting = false; w = (w + 1) % words.length; wait = 400; }
+    setTimeout(tick, wait);
+  };
+  setTimeout(tick, 2200);
+})();
+</script>
 </body>
 </html>

@@ -21,7 +21,7 @@ icons = {
  "aws": DV+"amazonwebservices/amazonwebservices-original-wordmark.svg",
  "git": DV+"git/git-original.svg", "github": DV+"github/github-original.svg",
  "githubactions": DV+"githubactions/githubactions-original.svg", "jenkins": DV+"jenkins/jenkins-original.svg",
- "docker": DV+"docker/docker-original.svg",
+ "docker": DV+"docker/docker-original.svg", "linux": DV+"ubuntu/ubuntu-original.svg",
  "kubernetes": DV+"kubernetes/kubernetes-original.svg", "terraform": DV+"terraform/terraform-original.svg",
  "llm": LU+"brain-circuit.svg", "rag": LU+"file-search.svg", "embeddings": LU+"chart-scatter.svg",
  "openai": LU+"sparkles.svg",
