@@ -140,7 +140,7 @@
   <section class="section" id="skills" style="--hm: 2" aria-labelledby="skills-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="skills-h">Skills and tools. <span class="muted">52 of them, in eight groups.</span></h2>
+        <h2 id="skills-h">Skills and tools</h2>
       </div>
       <ul class="rows cols">
         <li><span class="rows__name">Languages</span><ul class="tech">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul></li>
@@ -149,7 +149,7 @@
         <li><span class="rows__name">Databases and caching</span><ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul></li>
         <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:aws|AWS (S3, RDS)}}{{chip:docker|Docker}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}</ul></li>
         <li><span class="rows__name">AI and data engineering</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:embeddings|Embeddings}}{{chip:openai|OpenAI API}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul></li>
-        <li><span class="rows__name">Testing and developer tools</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul></li>
+        <li><span class="rows__name">Testing and developer tools</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}</ul></li>
         <li><span class="rows__name">Core concepts</span><ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul></li>
       </ul>
     </div>
@@ -158,7 +158,7 @@
   <section class="section ground-inverse" id="experience" style="--hm: 2" aria-labelledby="experience-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="experience-h">Work experience. <span class="muted">Four internships since May 2025.</span></h2>
+        <h2 id="experience-h">Work experience</h2>
       </div>
       <ol class="rows cols">
         <li class="job">
@@ -197,14 +197,14 @@
     </div>
   </section>
 
-  <section class="section g2" id="projects" aria-labelledby="projects-h" style="--h: 2">
+  <section class="section" id="projects" aria-labelledby="projects-h">
     <div class="wrap">
       <div class="group">
         <div class="section-head">
-          <h2 id="projects-h">AI and full-stack projects. <span class="muted">With source code.</span></h2>
+          <h2 id="projects-h">AI and workflow automation projects</h2>
         </div>
         <div class="grid">
-          <article class="card proj span-6">
+          <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/employee-wellbeing.svg" alt="Employee wellbeing activity dashboard" width="640" height="400" loading="lazy">
             <p class="t-label muted">Team project · AI · Full-stack</p>
             <h3>Employee wellbeing and activity monitoring</h3>
@@ -217,7 +217,7 @@
             <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:docker|Docker}}{{tag:pytest|pytest}}{{tag:githubactions|GitHub Actions}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
             <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
           </article>
-          <article class="card proj span-6">
+          <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/food-nutrition.svg" alt="Meal photo with AI calorie estimate" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Full-stack</p>
             <h3>Food and nutrition tracking system</h3>
@@ -230,46 +230,6 @@
             <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3 / RDS}}<li class="plain">Boto3</li>{{tag:react|React}}</ul>
             <a class="link" href="https://github.com/Sandhya192005/Food-Agent">See the source on GitHub</a>
           </article>
-        </div>
-      </div>
-      <div class="grid">
-        <article class="card proj span-6">
-          <img class="proj__shot" src="assets/img/projects/home-layout.svg" alt="Generated floor plan with cost estimate" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Full-stack · Generative design</p>
-          <h3>AI home layout</h3>
-          <p>Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
-          <ul class="points">
-            <li>Generates plans from geometry and rules, with Vastu zoning and parking.</li>
-            <li>Three.js 3D walkthrough and a drag-to-edit layout editor.</li>
-            <li>Versioned plan history, JWT auth, and PNG and PDF export.</li>
-          </ul>
-          <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:threejs|Three.js}}</ul>
-          <a class="link" href="https://github.com/Sandhya192005/home-layout">See the source on GitHub</a>
-        </article>
-        <article class="card proj span-6">
-          <img class="proj__shot" src="assets/img/projects/mediconnect.svg" alt="Doctor search with available slots" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Full-stack · Background jobs</p>
-          <h3>MediConnect</h3>
-          <p>A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
-          <ul class="points">
-            <li>Doctor search by department, hospital and city, with live free slots.</li>
-            <li>Celery sends booking, confirmation and reminder emails.</li>
-            <li>Redis queue and slot cache. The whole stack runs in Docker Compose.</li>
-          </ul>
-          <ul class="tech">{{tag:django|Django}}{{tag:nextjs|Next.js}}{{tag:postgresql|PostgreSQL}}{{tag:celery|Celery}}{{tag:redis|Redis}}{{tag:docker|Docker}}</ul>
-          <a class="link" href="https://github.com/Sandhya192005/MediConnect">See the source on GitHub</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section g2" id="more-projects" aria-labelledby="more-h" style="--h: 2">
-    <div class="wrap">
-      <div class="group">
-        <div class="section-head">
-          <h2 id="more-h">Frontend and automation projects. <span class="muted">Smaller apps.</span></h2>
-        </div>
-        <div class="grid">
           <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/cargo-email.svg" alt="Cargo email automation workflow" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Workflow automation</p>
@@ -282,6 +242,44 @@
             </ul>
             <ul class="tech">{{tag:n8n|n8n}}{{tag:llm|Claude AI}}<li class="plain">Outlook</li><li class="plain">Excel 365</li></ul>
             <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="more-projects" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="more-h">Full-stack projects</h2>
+        </div>
+        <div class="grid">
+          <article class="card proj span-4">
+            <img class="proj__shot" src="assets/img/projects/mediconnect.svg" alt="Doctor search with available slots" width="640" height="400" loading="lazy">
+            <p class="t-label muted">Full-stack · Background jobs</p>
+            <h3>MediConnect</h3>
+            <p>A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
+            <ul class="points">
+              <li>Doctor search by department, hospital and city, with live free slots.</li>
+              <li>Celery sends booking, confirmation and reminder emails.</li>
+              <li>Redis queue and slot cache. The whole stack runs in Docker Compose.</li>
+            </ul>
+            <ul class="tech">{{tag:django|Django}}{{tag:nextjs|Next.js}}{{tag:postgresql|PostgreSQL}}{{tag:celery|Celery}}{{tag:redis|Redis}}{{tag:docker|Docker}}</ul>
+            <a class="link" href="https://github.com/Sandhya192005/MediConnect">See the source on GitHub</a>
+          </article>
+          <article class="card proj span-4">
+            <img class="proj__shot" src="assets/img/projects/home-layout.svg" alt="Generated floor plan with cost estimate" width="640" height="400" loading="lazy">
+            <p class="t-label muted">Full-stack · Generative design</p>
+            <h3>Home layout</h3>
+            <p>Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
+            <ul class="points">
+              <li>Generates plans from geometry and rules, with Vastu zoning and parking.</li>
+              <li>Three.js 3D walkthrough and a drag-to-edit layout editor.</li>
+              <li>Versioned plan history, JWT auth, and PNG and PDF export.</li>
+            </ul>
+            <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:threejs|Three.js}}</ul>
+            <a class="link" href="https://github.com/Sandhya192005/home-layout">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/book-swapper.svg" alt="Book listings with swap and borrow filters" width="640" height="400" loading="lazy">
@@ -296,22 +294,19 @@
             <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}</ul>
             <a class="link" href="https://github.com/Sandhya192005/book-swapper">See the source on GitHub</a>
           </article>
-          <article class="card proj span-4">
-            <img class="proj__shot" src="assets/img/projects/budget-tracker.svg" alt="Monthly budget and recent transactions" width="640" height="400" loading="lazy">
-            <p class="t-label muted">Frontend · Personal finance</p>
-            <h3>Budget tracker</h3>
-            <p>A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
-            <ul class="points">
-              <li>Add, edit and delete transactions by category.</li>
-              <li>Monthly budget for each category with progress tracking.</li>
-              <li>Dashboard with spending stats and charts.</li>
-            </ul>
-            <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}<li class="plain">Recharts</li></ul>
-            <a class="link" href="https://github.com/Sandhya192005/budget-tracker">See the source on GitHub</a>
-          </article>
-        </div>
-      </div>
-      <div class="grid">
+        <article class="card proj span-4">
+          <img class="proj__shot" src="assets/img/projects/budget-tracker.svg" alt="Monthly budget and recent transactions" width="640" height="400" loading="lazy">
+          <p class="t-label muted">Frontend · Personal finance</p>
+          <h3>Budget tracker</h3>
+          <p>A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
+          <ul class="points">
+            <li>Add, edit and delete transactions by category.</li>
+            <li>Monthly budget for each category with progress tracking.</li>
+            <li>Dashboard with spending stats and charts.</li>
+          </ul>
+          <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}<li class="plain">Recharts</li></ul>
+          <a class="link" href="https://github.com/Sandhya192005/budget-tracker">See the source on GitHub</a>
+        </article>
         <article class="card proj span-4">
           <img class="proj__shot" src="assets/img/projects/product-review.svg" alt="Product cards with star ratings" width="640" height="400" loading="lazy">
           <p class="t-label muted">Frontend · Web app</p>
@@ -351,6 +346,7 @@
           <ul class="tech">{{tag:javascript|JavaScript}}{{tag:html|HTML}}{{tag:css|CSS}}{{tag:python|Python}}</ul>
           <a class="link" href="https://github.com/Sandhya192005/CGPA-calculator">See the source on GitHub</a>
         </article>
+        </div>
       </div>
     </div>
   </section>
@@ -358,7 +354,7 @@
   <section class="section" id="education" aria-labelledby="education-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="education-h">Education and certificates. <span class="muted">Graduating in 2027.</span></h2>
+        <h2 id="education-h">Education and certificates</h2>
       </div>
       <div class="grid">
         <div class="card m-nolift span-6">
@@ -373,6 +369,7 @@
           <ul class="rows">
             <li><span class="rows__name">Database Management Systems</span><span class="rows__value">NPTEL</span></li>
             <li><span class="rows__name">Python for Data Science</span><span class="rows__value">NPTEL</span></li>
+            <li><span class="rows__name">Introduction to Cloud Computing - IBM</span><span class="rows__value">Coursera</span></li>
             <li><span class="rows__name">3rd prize, technical paper presentation</span><span class="rows__value">VEC</span><p>Paper on an e-commerce website, Velammal Engineering College</p></li>
           </ul>
         </div>
@@ -381,7 +378,7 @@
   </section>
 </main>
 
-<footer class="footer closing" id="contact" aria-labelledby="close-h">
+<footer class="footer closing ground-inverse footer--dark" id="contact" aria-labelledby="close-h">
   <div class="wrap">
     <div class="closing__cta close--type">
       <div class="section-head">

@@ -6,7 +6,7 @@ The page is `index.html` plus the `assets/` folder (styles, scripts and the prof
 
 ## Sections
 
-- Skills: 52 skills in eight groups, each with its icon
+- Skills: eight groups, each with its icon
 - Work experience: Finstein Advizory Service LLP, Altruisty, Chennai Metro Rail Limited, Tata Virtual Internship
 - Projects: 10 projects with highlights, tech tags and source links
 - Education, certifications and contact

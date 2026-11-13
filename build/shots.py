@@ -112,7 +112,7 @@ b += c(372, 324, 30, "none", SURF, 8) + f'<path d="M372 294 A30 30 0 1 1 343 332
 b += t(372, 329, "1.8L", 11, INK, 600, "middle") + t(420, 310, "Water goal", 11, INK, 600) + t(420, 328, "1.8 of 2.6 litres", 10, MUTED) + t(420, 346, "BMI 21.4 · BMR 1,380", 10, MUTED)
 shots["food-nutrition"] = frame("foodagent.app/meal", b)
 
-# 3 AI home layout: dimensioned floor plan with cost panel
+# 3 Home layout: dimensioned floor plan with cost panel
 theme("home-layout")
 b = r(0, 32, W, H - 32, "#ffffff", 0)
 for gx in range(20, 440, 20):
@@ -131,7 +131,7 @@ for i, (k, v) in enumerate([("Vastu zoning", "On"), ("Floors", "1"), ("Facing", 
     b += t(458, y, k, 10, MUTED) + t(602, y, v, 10, INK, 600, "end") + f'<path d="M458 {y + 9}H602" stroke="{SURF}"/>'
 b += t(458, 230, "Estimated cost", 10, MUTED) + t(458, 260, "₹ 24.6 L", 22, ACC, 600)
 b += r(458, 284, 144, 30, ACC, 8) + t(530, 303, "View in 3D", 11, BG, 600, "middle") + r(458, 322, 144, 30, BG, 8, LINE) + t(530, 341, "Export PDF", 11, INK, 600, "middle")
-shots["home-layout"] = frame("homelayout.ai/plan/3", b)
+shots["home-layout"] = frame("homelayout.app/plan/3", b)
 
 # 4 MediConnect: doctor search with live slots
 theme("mediconnect")

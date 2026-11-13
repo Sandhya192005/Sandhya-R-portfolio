@@ -25,6 +25,7 @@ icons = {
  "kubernetes": DV+"kubernetes/kubernetes-original.svg", "terraform": DV+"terraform/terraform-original.svg",
  "llm": LU+"brain-circuit.svg", "rag": LU+"file-search.svg", "embeddings": LU+"chart-scatter.svg",
  "openai": LU+"sparkles.svg",
+ "vscode": DV+"vscode/vscode-original.svg", "canva": DV+"canva/canva-original.svg", "antigravity": LU+"rocket.svg",  # no Antigravity logo on the icon CDNs yet
  "swagger": DV+"swagger/swagger-original.svg", "postman": DV+"postman/postman-original.svg", "n8n": SI+"n8n.svg",
  "oop": LU+"blocks.svg", "dbms": LU+"database-zap.svg", "mvc": LU+"layers.svg", "http": LU+"arrow-left-right.svg",
  "restfund": LU+"globe.svg", "cicd": LU+"infinity.svg",
