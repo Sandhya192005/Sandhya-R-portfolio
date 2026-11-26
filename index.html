@@ -41,9 +41,6 @@
   main > .hero { height: auto; min-height: 100svh; }
   .hero > .wrap { height: auto; }
   .hero .hero-facts { display: grid; margin-top: var(--s-5); }
-  /* the longest role (Software Developer) and its cursor stay on one line, so the title never jumps */
-  #hero-h { font-size: min(40px, calc((100vw - 48px) * 0.112)); }
-  .typed { white-space: nowrap; }
   /* education and certificates: the year or issuer goes under the name instead of squeezing it */
   #education .rows > li { grid-template-columns: minmax(0, 1fr); }
   #education .rows__value { grid-column: 1; grid-row: auto; text-align: left; color: var(--muted); font-size: var(--t-small); }
@@ -104,6 +101,19 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
   background: var(--p-accent); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .typed::after { animation: none; } }
+/* a small icon before each role: code brackets, the DevOps loop (Dev and Ops halves in two shades), sparkles.
+   The icon for the role being typed fades in; the others stay hidden */
+.role { white-space: nowrap; }
+.role__icon { display: inline-grid; width: 0.74em; height: 0.74em; margin-right: 0.2em; vertical-align: -0.04em; color: var(--p-accent); }
+.role__icon svg { grid-area: 1 / 1; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; transform: scale(0.7) rotate(-12deg); transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.role__icon .loop-ops { stroke: #d0708e; }
+/* the loop is wide, so its box widens while DevOps is shown (the word is empty at that moment, so nothing jumps) */
+.role__icon { transition: width 0.3s ease; }
+.role[data-i="1"] .role__icon { width: 1.2em; }
+.role__icon .ri-1 { stroke-width: 1.7; }
+.role[data-i="0"] .ri-0, .role[data-i="1"] .ri-1, .role[data-i="2"] .ri-2 { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .role__icon svg { transition: none; } }
 </style>
 </head>
 <body>
@@ -136,7 +146,7 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-6">
         <p class="hero__kicker">Open to entry-level and fresher roles</p>
-        <h1 id="hero-h" aria-label="Sandhya R, Software Developer, DevOps Engineer and AI Engineer">Sandhya R,<br><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer|AI Engineer">Software Developer</span></h1>
+        <h1 id="hero-h" aria-label="Sandhya R, Software Developer, DevOps Engineer and AI Engineer">Sandhya R,<br><span class="role" data-i="0"><span class="role__icon" aria-hidden="true"><svg class="ri-0" viewBox="0 0 24 24"><path d="m17 16.5 4.5-4.5L17 7.5"/><path d="M7 7.5 2.5 12 7 16.5"/><path d="m14 4-4 16"/></svg><svg class="ri-1" viewBox="0 5 24 14"><path class="loop-dev" d="M12 12C9.5 8.4 7.9 6.75 5.75 6.75a5.25 5.25 0 0 0 0 10.5c2.15 0 3.75-1.65 6.25-5.25"/><path class="loop-ops" d="M12 12c2.5 3.6 4.1 5.25 6.25 5.25a5.25 5.25 0 0 0 0-10.5C16.1 6.75 14.5 8.4 12 12"/></svg><svg class="ri-2" viewBox="0 0 24 24"><path d="M10 15.4A2 2 0 0 0 8.6 14l-5.9-1.5a.5.5 0 0 1 0-1L8.6 10A2 2 0 0 0 10 8.6l1.5-5.9a.5.5 0 0 1 1 0L14 8.6a2 2 0 0 0 1.4 1.4l5.9 1.5a.5.5 0 0 1 0 1L15.4 14a2 2 0 0 0-1.4 1.4l-1.5 5.9a.5.5 0 0 1-1 0z"/><path d="M20 2.5v4"/><path d="M22 4.5h-4"/></svg></span><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer|AI Engineer">Software Developer</span></span></h1>
         <p class="hero__lead">I build backend services and AI apps in Chennai with Python, FastAPI and PostgreSQL, and deploy them with Docker, CI/CD and AWS. Full-Stack Developer Intern at Finstein Advizory since July 2026.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="mailto:sandhyasubha192005@gmail.com">Email me<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
@@ -190,10 +200,32 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
 <script>
-// types and deletes each role in the hero title in turn
+// shrinks the hero title only when the longest role and its icon would not fit its column,
+// so every role stays on one line and the title never jumps while it types
+(() => {
+  const h1 = document.getElementById("hero-h"), role = h1 && h1.querySelector(".role"), el = role && role.querySelector(".typed");
+  if (!el) return;
+  const longest = el.dataset.words.split("|").reduce((a, b) => (b.length > a.length ? b : a));
+  const fit = () => {
+    h1.style.fontSize = "";
+    const shown = el.textContent;
+    el.textContent = longest;
+    const need = role.getBoundingClientRect().width + 0.12 * parseFloat(getComputedStyle(h1).fontSize); // room for the cursor
+    el.textContent = shown;
+    // on a phone the column can stretch to fit the word, so the page's own margins are the real limit
+    const wrap = h1.closest(".wrap"), ws = getComputedStyle(wrap);
+    const room = Math.min(h1.clientWidth, wrap.clientWidth - parseFloat(ws.paddingLeft) - parseFloat(ws.paddingRight));
+    if (need > room) h1.style.fontSize = (parseFloat(getComputedStyle(h1).fontSize) * room / need).toFixed(2) + "px";
+  };
+  fit();
+  document.fonts && document.fonts.ready.then(fit);
+  addEventListener("resize", fit);
+})();
+// types and deletes each role in the hero title in turn, switching the role icon as each new word starts
 (() => {
   const el = document.querySelector(".typed");
   if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const role = el.closest(".role");
   const words = el.dataset.words.split("|");
   let w = 0, n = words[0].length, deleting = true;
   const tick = () => {
@@ -202,7 +234,7 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
     el.textContent = word.slice(0, n);
     let wait = deleting ? 45 : 95;
     if (!deleting && n === word.length) { deleting = true; wait = 2200; }
-    else if (deleting && n === 0) { deleting = false; w = (w + 1) % words.length; wait = 400; }
+    else if (deleting && n === 0) { deleting = false; w = (w + 1) % words.length; wait = 400; role.dataset.i = w; }
     setTimeout(tick, wait);
   };
   setTimeout(tick, 2200);
