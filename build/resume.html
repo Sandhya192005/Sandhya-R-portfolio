@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sandhya R - Resume</title>
+<!-- Source of the resume PDF. Print it with: python build/resume.py (A4, one page) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { width: 210mm; padding: 6mm 15mm 5mm; font: 10pt/1.17 "Times New Roman", Times, serif; color: #000; }
+a { color: inherit; }
+
+/* header: name, title, contact links */
+.name { margin: 0; text-align: center; font-size: 20.4pt; font-weight: 700; line-height: 1.15; }
+.title { margin: 0 0 5pt; text-align: center; font-size: 16.4pt; font-weight: 400; line-height: 1.2; }
+.contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 4pt 22pt; margin: 0 0 4pt; padding: 0; list-style: none;
+  font: 400 9.5pt/1.3 Montserrat, "Segoe UI", Arial, sans-serif; }
+.contact a { display: inline-flex; align-items: center; gap: 3pt; color: #444; text-decoration: underline; text-underline-offset: 1.5pt; }
+.contact svg { width: 11pt; height: 11pt; flex: none; }
+
+/* sections: the rule sits above each heading, with room on both sides, so it never touches text */
+section { border-top: 1.2pt solid #000; padding-top: 1.5pt; margin-top: 4pt; }
+h2 { margin: 0 0 1pt; font-size: 11.3pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+/* all body text left-aligned and the same width */
+p, li { margin: 0; text-align: left; }
+.body { padding-left: 7pt; }
+.summary { padding-left: 7pt; }
+.skills { margin: 0; padding: 0 0 0 7pt; list-style: none; }
+.skills li { padding-left: 0; }
+b { font-weight: 700; }
+
+/* jobs and projects share one heading style and one bullet style */
+.item { margin-top: 2pt; }
+.item:first-child { margin-top: 0; }
+.item__head { font-weight: 700; }
+ul.bullets { margin: 0; padding: 0 0 0 14pt; list-style: disc; }
+ul.bullets li { padding-left: 2pt; }
+ul.bullets li::marker { font-size: 9pt; }
+</style>
+</head>
+<body>
+<h1 class="name">SANDHYA R</h1>
+<p class="title">SOFTWARE DEVELOPER | DEVOPS | AI ENGINEER</p>
+<ul class="contact">
+  <li><a href="tel:+917358412530"><svg viewBox="0 0 24 24" fill="#111"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>+91 7358412530</a></li>
+  <li><a href="mailto:sandhyasubha192005@gmail.com"><svg viewBox="0 0 24 24" fill="#111"><path d="M2 5h20v14H2z" fill="none"/><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zm2.2.5L12 11.6 19.8 6zM4 8.3V18h16V8.3l-8 5.7z"/></svg>sandhyasubha192005@gmail.com</a></li>
+  <li><a href="https://linkedin.com/in/sandhya192005"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#111"/><path fill="#fff" d="M5.3 9.2h2.9v9.5H5.3zM6.8 4.6a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4zM10 9.2h2.8v1.3c.4-.8 1.4-1.5 2.9-1.5 3 0 3.6 2 3.6 4.6v5.1h-2.9v-4.5c0-1.1 0-2.5-1.5-2.5s-1.8 1.2-1.8 2.4v4.6H10z"/></svg>linkedin.com/in/sandhya192005</a></li>
+  <li><a href="https://sandhya192005.github.io/Sandhya-R-portfolio/"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 3.9 5.8 3.9 9.5s-1.3 6.9-3.9 9.5c-2.6-2.6-3.9-5.8-3.9-9.5S9.4 5.1 12 2.5z"/></svg>sandhya192005.github.io/Sandhya-R-portfolio</a></li>
+  <li><a href="https://github.com/Sandhya192005"><svg viewBox="0 0 24 24" fill="#111"><path d="M12 1.5a10.5 10.5 0 0 0-3.3 20.5c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.4-3.5-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.5 1.2 3.1.9.1-.7.4-1.2.7-1.4-2.3-.3-4.8-1.2-4.8-5.2 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1a10 10 0 0 1 5.2 0c2-1.4 2.9-1.1 2.9-1.1.6 1.5.2 2.5.1 2.8.7.7 1.1 1.7 1.1 2.8 0 4-2.5 4.9-4.8 5.2.4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg>github.com/Sandhya192005</a></li>
+</ul>
+
+<section>
+  <h2>Profile Summary</h2>
+  <p class="summary">Software Developer with a focus on DevOps and AI engineering, and hands-on experience in backend and full-stack development, building RESTful APIs and AI-powered applications using Python, Django, and FastAPI. Skilled in PostgreSQL, MongoDB, and AWS services (S3 and RDS), with familiarity in Docker, CI/CD, and automated testing using Pytest and Playwright. Experienced in LLM integration, RAG, and workflow automation. Interested in developing scalable backend systems and reliable software solutions.</p>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <ul class="skills">
+    <li><b>Programming Languages:</b> Python, Java, JavaScript, TypeScript, SQL</li>
+    <li><b>Frontend:</b> HTML5, CSS3, React.js</li>
+    <li><b>Backend:</b> FastAPI, Django, RESTful APIs, Celery</li>
+    <li><b>Database &amp; Caching:</b> PostgreSQL, MongoDB, Redis, Vector Databases, Django ORM, SQLAlchemy</li>
+    <li><b>Testing &amp; Automation:</b> pytest, Playwright</li>
+    <li><b>Cloud,CI/CD &amp; DevOps:</b> Linux(Ubuntu), AWS(S3, IAM, EC2, RDS), CI/CD, Git, GitHub, GitHub Actions, Jenkins, Docker, Docker Compose, Kubernetes, Terraform, Nginx</li>
+    <li><b>AI Technologies:</b> LLMs, RAG, AI Orchestration, Ollama, Chunking, Embeddings, Hugging Face, Fine-Tuning, LangChain, Scikit-learn, Numpy, Pandas, Matplotlib, Tensorflow, Pytorch, Pydantic</li>
+    <li><b>Developer Tools &amp; Workflow Automation:</b> VS code, Antigravity, Canva, Swagger UI, Postman, n8n</li>
+    <li><b>Core Concepts:</b> Object-Oriented Programming (OOP), DBMS, MVC-Architecture, HTTP Methods, REST API Fundamentals, CI/CD Fundamentals</li>
+    <li><b>Data Engineering:</b> Databricks, PySpark</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Work Experience</h2>
+  <div class="body">
+    <div class="item">
+      <p class="item__head">Full-Stack Developer Intern — Finstein Advizory Service LLP | July 2026 – Present</p>
+      <ul class="bullets">
+        <li>Developing and testing backend services using Python and FastAPI.</li>
+        <li>Building and integrating REST APIs to support frontend-backend communication.</li>
+        <li>Working with PostgreSQL for backend data storage and querying across projects.</li>
+        <li>Gaining hands-on exposure to data engineering workflows using Databricks and PySpark.</li>
+        <li>Working with development and testing workflows as part of application development.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <p class="item__head">Computer Science Intern – Chennai Metro Rail Limited | June 2025</p>
+      <ul class="bullets">
+        <li>Worked with IT systems involving data management, software monitoring, and troubleshooting.</li>
+        <li>Gained practical exposure to enterprise networking, relational databases, and process automation.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+  <div class="body">
+    <div class="item">
+      <p class="item__head">Employee Wellbeing &amp; Activity Monitoring System</p>
+      <p><b>Technologies:</b> Python, FastAPI, PostgreSQL, React.js, TypeScript, Ollama, Qwen 3, OpenAI API(gpt-5.6-luna)</p>
+      <ul class="bullets">
+        <li>Developed an activity monitoring system with encrypted local storage, automatic synchronization, and retry handling.</li>
+        <li>Built FastAPI APIs with PostgreSQL integration and an AI orchestrator for agent selection and coordination, enabling activity tracking, employee dashboards, and AI-powered wellbeing reminders.</li>
+        <li>Evaluated 2 LLMs (Qwen 3 and OpenAI) using identical prompts, selecting OpenAI based on response quality and achieving 95% positive evaluation results.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <p class="item__head">Food &amp; Nutrition Tracking System</p>
+      <p><b>Technologies:</b> Python, FastAPI, PostgreSQL, React.js, OpenAI API(gpt-5.6-luna), AWS S3, Boto3</p>
+      <ul class="bullets">
+        <li>Developed an AI-powered food tracking application with image-based food analysis, calorie estimation, and personalized nutrition recommendations.</li>
+        <li>Built FastAPI APIs for authentication, meal tracking, food image analysis, and water management, integrating PostgreSQL and AWS S3.</li>
+        <li>Tested food image analysis and achieved 75% satisfactory calorie estimation results; implemented and tested automated meal and water reminders.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <p class="item__head">Cargo Shipment Email Automation</p>
+      <p><b>Technologies:</b> n8n, Microsoft Outlook, Claude AI, Excel, OneDrive</p>
+      <ul class="bullets">
+        <li>Developed an n8n workflow to monitor and process incoming cargo shipment emails from Microsoft Outlook.</li>
+        <li>Automated extraction of shipment details, including customer names, container numbers, ports, vessel details, ETD, ETA, and shipment status.</li>
+        <li>Implemented customer matching against master Excel records and generated customer-specific shipment reports, reducing manual processing effort by 82%.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="body">
+    <p>B.E. Computer Science and Engineering – Velammal Engineering College | 2023 – 2027 | CGPA: 8.26/10</p>
+    <p>Higher Secondary (Class XII) – Don Bosco Matriculation Hr. Sec. School | 2023 | 79.9% (479/600)</p>
+  </div>
+</section>
+</body>
+</html>
