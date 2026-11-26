@@ -29,7 +29,7 @@
   --display-tracking-xl: -0.038em;
 }
 </style>
-<!-- page CSS: the round portrait, the tool chips, and the 12-column rows for skills and jobs -->
+<!-- page CSS: the round portrait, the tool chips, and the layouts of the skills, experience, projects and education pages -->
 <style>
 /* round portrait on desktop and phone; on a tablet the kit's full-width frame fills what the words leave */
 @media (min-width: 1024px) {
@@ -41,9 +41,6 @@
   main > .hero { height: auto; min-height: 100svh; }
   .hero > .wrap { height: auto; }
   .hero .hero-facts { display: grid; margin-top: var(--s-5); }
-  /* education and certificates: the year or issuer goes under the name instead of squeezing it */
-  #education .rows > li { grid-template-columns: minmax(0, 1fr); }
-  #education .rows__value { grid-column: 1; grid-row: auto; text-align: left; color: var(--muted); font-size: var(--t-small); }
 }
 
 /* short laptop windows and phones: a section grows past its screen rather than slide under the next one
@@ -65,26 +62,11 @@
 .tech .ic { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff; flex: none; }
 .tech .ic img { width: 18px; height: 18px; object-fit: contain; }
 
-.rows.cols > li { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-.rows.cols > li > :first-child { grid-column: 1 / span 3; }
-.rows.cols > li > :last-child { grid-column: 4 / -1; }
-#experience .rows.cols > li > :first-child { grid-column: 1 / span 6; }
-#experience .rows.cols > li > :last-child { grid-column: 7 / -1; }
-.job h3 { font: 500 var(--t-card)/1.3 var(--font-text); }
-.job p { color: var(--muted); }
-.duties { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s-2); }
-@media (max-width: 639px) {
-  .rows.cols > li > :first-child, .rows.cols > li > :last-child,
-  #experience .rows.cols > li > :first-child, #experience .rows.cols > li > :last-child { grid-column: 1 / -1; }
-}
 
 .proj { display: flex; flex-direction: column; gap: var(--s-3); }
 .proj > p { max-width: none; }
 .proj > .tech { padding-top: var(--s-1); }
 .proj > .link { align-self: start; }
-/* with pictures the project sections can run taller than two screens, so they grow instead of clipping */
-#projects, #more-projects { height: auto; min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
-#projects > .wrap, #more-projects > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
 /* each inner page opens under the fixed nav with its own heading and grows with its content */
 main > .section.page-top { padding-top: calc(var(--nav) + var(--section)); height: auto; min-height: 100svh; display: flex; flex-direction: column; }
 main > .section.page-top > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
@@ -92,16 +74,104 @@ main > .section.page-top > .wrap { flex: 1 0 auto; height: auto; min-height: 0; 
 .page-head > .link { justify-self: start; }
 main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 .proj > .proj__shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: var(--r-md); border: 1px solid var(--line); margin-bottom: var(--s-2); }
-#education .card { gap: var(--s-5); }
-#education .rows__name { font-size: var(--t-lead); }
 .points { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 2px; }
+
+/* ---- inner pages: a stats line under each heading, filter buttons, and each page's own layout ---- */
+.stats { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-8); }
+.stats > li { display: grid; gap: 4px; }
+.stats b { font: var(--display-weight) clamp(1.75rem, 3vw, 2.5rem)/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+.stats span { font-size: var(--t-small); color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0 0 var(--s-5); }
+.filters button { font: 500 var(--t-small)/1 var(--font-text); min-height: 40px; padding: 0 var(--s-4); border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: transparent; color: var(--ink); transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+.filters button:hover { border-color: var(--p-accent); }
+.filters button[aria-pressed="true"] { background: var(--p-accent); border-color: var(--p-accent); color: var(--p-accent-ink); }
+[data-cat][hidden] { display: none !important; }
+.sub-h { font: 500 var(--t-card)/1.3 var(--font-text); margin: var(--s-8) 0 var(--s-4); }
+
+/* skills: the core stack, then one card per area in up to three columns */
+.skill-card__head { display: flex; align-items: center; gap: var(--s-3); }
+.skill-card__head img { width: 22px; height: 22px; flex: none; }
+.skill-card__head h2 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.skill-card__count { margin-left: auto; font-size: var(--t-small); color: var(--muted); white-space: nowrap; }
+.core { gap: var(--s-4); margin-bottom: var(--s-7); }
+.tech--lg > li { min-height: 48px; font-size: var(--t-body); padding-right: var(--s-4); }
+.tech--lg .ic { width: 32px; height: 32px; }
+.tech--lg .ic img { width: 24px; height: 24px; }
+.skill-grid { columns: 3 320px; column-gap: var(--s-4); }
+.skill-card { gap: var(--s-4); break-inside: avoid; margin-bottom: var(--s-4); }
+
+/* experience: a timeline, newest first, the current job marked */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); position: relative; }
+.tl { position: relative; }
+.tl:not(:last-child)::before { content: ""; position: absolute; left: 11px; top: 54px; bottom: calc(-1 * var(--s-5) - 30px); width: 2px; background: color-mix(in oklab, var(--p-accent) 30%, var(--line)); }
+.tl { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--s-5); align-items: start; }
+.tl__dot { position: relative; z-index: 1; width: 24px; height: 24px; margin-top: 30px; border-radius: 50%; background: var(--p-bg); border: 2px solid var(--p-accent); }
+.tl__dot.is-now { background: var(--p-accent); box-shadow: 0 0 0 6px color-mix(in oklab, var(--p-accent) 18%, transparent); }
+.tl__card { gap: var(--s-4); }
+.tl__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--s-2) var(--s-5); }
+.tl__role { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.tl__org { color: var(--muted); margin: 2px 0 0; }
+.tl__when { display: flex; align-items: center; gap: var(--s-3); margin: 0; font-size: var(--t-small); color: var(--muted); white-space: nowrap; }
+.badge-now { padding: 4px 10px; border-radius: 999px; background: var(--p-accent); color: var(--p-accent-ink); font-weight: 500; font-size: var(--t-label); }
+@media (max-width: 639px) {
+  .tl:not(:last-child)::before { left: 7px; top: 42px; bottom: calc(-1 * var(--s-5) - 26px); }
+  .tl { grid-template-columns: 16px minmax(0, 1fr); gap: var(--s-3); }
+  .tl__dot { width: 16px; height: 16px; margin-top: 26px; }
+  .tl__dot.is-now { box-shadow: 0 0 0 4px color-mix(in oklab, var(--p-accent) 18%, transparent); }
+}
+
+/* projects: the three AI projects as wide featured cards with their result, the rest in a grid */
+.proj-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+.proj--feature { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-6); align-items: start; }
+.proj--feature > .proj__shot { margin: 0; }
+.proj__body { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+.proj__body > h3 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.proj__body > .link { align-self: start; }
+.proj-result { display: flex; align-items: center; gap: var(--s-4); margin: var(--s-1) 0; padding: var(--s-3) var(--s-4); border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--p-accent) 9%, var(--card)); }
+.proj-result b { font: var(--display-weight) 2.5rem/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+@media (max-width: 1023px) {
+  .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj--feature { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+}
+@media (max-width: 639px) { .proj-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* education: the degree with its CGPA and progress, the school, then certificate badges */
+.edu-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gutter); align-items: stretch; }
+.edu { gap: var(--s-3); }
+.edu h2 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.edu__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: color-mix(in oklab, var(--p-accent) 10%, var(--card)); margin-bottom: var(--s-2); }
+.edu__icon img { width: 26px; height: 26px; }
+.edu__place { color: var(--muted); margin: 0; }
+.edu__figures { display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-8); margin-top: var(--s-3); }
+.edu__figures > div { display: grid; gap: 4px; }
+.edu__figures b { font: var(--display-weight) 2.25rem/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+.edu__figures span { font-size: var(--t-small); color: var(--muted); }
+.progress { height: 10px; margin-top: var(--s-4); border-radius: 999px; background: color-mix(in oklab, var(--p-accent) 12%, var(--card)); overflow: hidden; }
+.progress__bar { display: block; height: 100%; border-radius: inherit; background: var(--p-accent); }
+.progress__labels { display: flex; justify-content: space-between; font-size: var(--t-small); color: var(--muted); }
+.cert-grid, .award-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+@media (max-width: 1023px) { .cert-grid, .award-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 479px) { .cert-grid, .award-grid { grid-template-columns: minmax(0, 1fr); } }
+.cert { gap: var(--s-2); }
+.cert > img { width: 28px; height: 28px; margin-bottom: var(--s-2); }
+/* the issuer's logo at the top of each certificate */
+.cert__issuer { display: inline-flex; align-items: center; gap: var(--s-2); align-self: start; height: 36px; padding: 0 var(--s-3); margin-bottom: var(--s-2);
+  border-radius: 10px; background: #fff; border: 1px solid var(--line); font-weight: 600; font-size: var(--t-small); color: var(--ink); }
+.cert__issuer img { width: 20px; height: 20px; }
+.cert__issuer--logo img { width: auto; height: 22px; } /* NPTEL's own logo (from nptel.ac.in), emblem and name together */
+.cert > h3 { font: 500 var(--t-lead, 1.125rem)/1.35 var(--font-text); margin: 0; }
+.cert > p { margin: 0; font-size: var(--t-body); }
+.cert--award { background: color-mix(in oklab, var(--p-accent) 8%, var(--card)); border-color: color-mix(in oklab, var(--p-accent) 25%, var(--line)); }
+@media (max-width: 1023px) { .edu-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* hero title types out each role in turn; with reduced motion it stays on the first */
 .typed::after { content: ""; display: inline-block; width: 0.06em; height: 0.9em; margin-left: 0.06em; vertical-align: -0.08em;
   background: var(--p-accent); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .typed::after { animation: none; } }
-/* a small icon before each role: code brackets, the DevOps loop (Dev and Ops halves in two shades), sparkles.
+/* a small icon before each role: code brackets, the DevOps loop (Dev and Ops halves in two shades), a neural network.
    The icon for the role being typed fades in; the others stay hidden */
 .role { white-space: nowrap; }
 .role__icon { display: inline-grid; width: 0.74em; height: 0.74em; margin-right: 0.2em; vertical-align: -0.04em; color: var(--p-accent); }
@@ -110,8 +180,9 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 .role__icon .loop-ops { stroke: #d0708e; }
 /* the loop is wide, so its box widens while DevOps is shown (the word is empty at that moment, so nothing jumps) */
 .role__icon { transition: width 0.3s ease; }
-.role[data-i="1"] .role__icon { width: 1.2em; }
+.role[data-i="1"] .role__icon { width: 1.25em; }
 .role__icon .ri-1 { stroke-width: 1.7; }
+.role__icon .ri-2 circle { fill: var(--p-bg); } /* the nodes sit on top of the lines */
 .role[data-i="0"] .ri-0, .role[data-i="1"] .ri-1, .role[data-i="2"] .ri-2 { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .role__icon svg { transition: none; } }
 </style>
@@ -147,7 +218,7 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-6">
         <p class="hero__kicker">Open to entry-level and fresher roles</p>
-        <h1 id="hero-h" aria-label="Sandhya R, Software Developer, DevOps Engineer and AI Engineer">Sandhya R,<br><span class="role" data-i="0"><span class="role__icon" aria-hidden="true"><svg class="ri-0" viewBox="0 0 24 24"><path d="m17 16.5 4.5-4.5L17 7.5"/><path d="M7 7.5 2.5 12 7 16.5"/><path d="m14 4-4 16"/></svg><svg class="ri-1" viewBox="0 5 24 14"><path class="loop-dev" d="M12 12C9.5 8.4 7.9 6.75 5.75 6.75a5.25 5.25 0 0 0 0 10.5c2.15 0 3.75-1.65 6.25-5.25"/><path class="loop-ops" d="M12 12c2.5 3.6 4.1 5.25 6.25 5.25a5.25 5.25 0 0 0 0-10.5C16.1 6.75 14.5 8.4 12 12"/></svg><svg class="ri-2" viewBox="0 0 24 24"><path d="M10 15.4A2 2 0 0 0 8.6 14l-5.9-1.5a.5.5 0 0 1 0-1L8.6 10A2 2 0 0 0 10 8.6l1.5-5.9a.5.5 0 0 1 1 0L14 8.6a2 2 0 0 0 1.4 1.4l5.9 1.5a.5.5 0 0 1 0 1L15.4 14a2 2 0 0 0-1.4 1.4l-1.5 5.9a.5.5 0 0 1-1 0z"/><path d="M20 2.5v4"/><path d="M22 4.5h-4"/></svg></span><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer|AI Engineer">Software Developer</span></span></h1>
+        <h1 id="hero-h" aria-label="Sandhya R, Software Developer, DevOps Engineer and AI Engineer">Sandhya R,<br><span class="role" data-i="0"><span class="role__icon" aria-hidden="true"><svg class="ri-0" viewBox="0 0 24 24"><path d="m17 16.5 4.5-4.5L17 7.5"/><path d="M7 7.5 2.5 12 7 16.5"/><path d="m14 4-4 16"/></svg><svg class="ri-1" viewBox="-1.5 4 27 16"><path class="loop-dev" d="M12 12C9.5 8.4 7.9 6.75 5.75 6.75a5.25 5.25 0 0 0 0 10.5c2.15 0 3.75-1.65 6.25-5.25"/><path class="loop-ops" d="M12 12c2.5 3.6 4.1 5.25 6.25 5.25a5.25 5.25 0 0 0 0-10.5C16.1 6.75 14.5 8.4 12 12"/></svg><svg class="ri-2" viewBox="0 0 24 24"><path d="M5 6l7 6M5 6l7-1M5 18l7-6M5 18l7 1M12 5l7 7M12 12h7M12 19l7-7" stroke-width="1.4"/><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="12" r="2.4"/></svg></span><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer|AI Engineer">Software Developer</span></span></h1>
         <p class="hero__lead">I build backend services and AI apps in Chennai with Python, FastAPI and PostgreSQL, and deploy them with Docker, CI/CD and AWS. Full-Stack Developer Intern at Finstein Advizory since July 2026.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="mailto:sandhyasubha192005@gmail.com">Email me<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
@@ -177,18 +248,59 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
         <h1 id="skills-h">Skills and tools</h1>
         <p>The languages, frameworks and tools I use across software development, DevOps and AI engineering.</p>
       </div>
-      <ul class="rows cols">
-        <li><span class="rows__name">Languages</span><ul class="tech">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul></li>
-        <li><span class="rows__name">Backend</span><ul class="tech">{{chip:fastapi|FastAPI}}{{chip:django|Django}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}</ul></li>
-        <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:linux|Linux (Ubuntu)}}{{chip:aws|AWS (S3, IAM, EC2, RDS)}}{{chip:cicd|CI/CD}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}{{chip:docker|Docker}}{{chip:docker|Docker Compose}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}{{chip:nginx|Nginx}}</ul></li>
-        <li><span class="rows__name">AI technologies</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:orchestration|AI Orchestration}}{{chip:chunking|Chunking}}{{chip:ollama|Ollama}}{{chip:embeddings|Embeddings}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:openai|OpenAI API}}{{chip:finetuning|Fine-tuning}}{{chip:sklearn|scikit-learn}}{{chip:numpy|NumPy}}{{chip:pandas|pandas}}{{chip:matplotlib|Matplotlib}}{{chip:tensorflow|TensorFlow}}{{chip:pytorch|PyTorch}}{{chip:pydantic|Pydantic}}</ul></li>
-        <li><span class="rows__name">Databases and caching</span><ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:django|Django ORM}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul></li>
-        <li><span class="rows__name">Frontend</span><ul class="tech">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul></li>
-        <li><span class="rows__name">Testing and automation</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}</ul></li>
-        <li><span class="rows__name">Developer tools and workflow automation</span><ul class="tech">{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul></li>
-        <li><span class="rows__name">Data engineering</span><ul class="tech">{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul></li>
-        <li><span class="rows__name">Core concepts</span><ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul></li>
-      </ul>
+      <div class="card core m-nolift">
+        <div class="skill-card__head">{{logo:i_star}}<h2>Core stack</h2><span class="skill-card__count">What I use most</span></div>
+        <ul class="tech tech--lg">{{chip:python|Python}}{{chip:fastapi|FastAPI}}{{chip:postgresql|PostgreSQL}}{{chip:docker|Docker}}{{chip:aws|AWS}}{{chip:githubactions|GitHub Actions}}{{chip:llm|LLMs}}{{chip:rag|RAG}}</ul>
+      </div>
+      <div class="filters" role="group" aria-label="Show skills for">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="dev" aria-pressed="false">Software development</button>
+        <button type="button" data-filter="devops" aria-pressed="false">DevOps</button>
+        <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+        <button type="button" data-filter="data" aria-pressed="false">Data</button>
+      </div>
+      <div class="skill-grid">
+        <article class="card skill-card m-nolift" data-cat="dev ai data">
+          <div class="skill-card__head">{{logo:i_code}}<h2>Languages</h2><span class="skill-card__count">5</span></div>
+          <ul class="tech">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev">
+          <div class="skill-card__head">{{logo:i_server}}<h2>Backend</h2><span class="skill-card__count">6</span></div>
+          <ul class="tech">{{chip:fastapi|FastAPI}}{{chip:django|Django}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="devops">
+          <div class="skill-card__head">{{logo:i_cloud}}<h2>Cloud, CI/CD and DevOps</h2><span class="skill-card__count">12</span></div>
+          <ul class="tech">{{chip:linux|Linux (Ubuntu)}}{{chip:aws|AWS (S3, IAM, EC2, RDS)}}{{chip:cicd|CI/CD}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}{{chip:docker|Docker}}{{chip:docker|Docker Compose}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}{{chip:nginx|Nginx}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="ai">
+          <div class="skill-card__head">{{logo:i_ai}}<h2>AI technologies</h2><span class="skill-card__count">17</span></div>
+          <ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:orchestration|AI Orchestration}}{{chip:chunking|Chunking}}{{chip:ollama|Ollama}}{{chip:embeddings|Embeddings}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:openai|OpenAI API}}{{chip:finetuning|Fine-tuning}}{{chip:sklearn|scikit-learn}}{{chip:numpy|NumPy}}{{chip:pandas|pandas}}{{chip:matplotlib|Matplotlib}}{{chip:tensorflow|TensorFlow}}{{chip:pytorch|PyTorch}}{{chip:pydantic|Pydantic}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev data">
+          <div class="skill-card__head">{{logo:i_db}}<h2>Databases and caching</h2><span class="skill-card__count">8</span></div>
+          <ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:django|Django ORM}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev">
+          <div class="skill-card__head">{{logo:i_frontend}}<h2>Frontend</h2><span class="skill-card__count">6</span></div>
+          <ul class="tech">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev devops">
+          <div class="skill-card__head">{{logo:i_test}}<h2>Testing and automation</h2><span class="skill-card__count">2</span></div>
+          <ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev ai">
+          <div class="skill-card__head">{{logo:i_tools}}<h2>Developer tools and workflow automation</h2><span class="skill-card__count">6</span></div>
+          <ul class="tech">{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="data">
+          <div class="skill-card__head">{{logo:i_data}}<h2>Data engineering</h2><span class="skill-card__count">2</span></div>
+          <ul class="tech">{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul>
+        </article>
+        <article class="card skill-card m-nolift" data-cat="dev">
+          <div class="skill-card__head">{{logo:i_ideas}}<h2>Core concepts</h2><span class="skill-card__count">6</span></div>
+          <ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul>
+        </article>
+      </div>
     </div>
   </section>
 <!--/skills-->
@@ -198,40 +310,68 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
       <div class="section-head page-head">
         <a class="link" href="index.html">Back to home</a>
         <h1 id="experience-h">Work experience</h1>
-        <p>Four internships in full-stack development, MERN stack development, IT systems and data analytics.</p>
+        <p>My internships in full-stack development, MERN stack development, IT systems and data analytics, newest first.</p>
       </div>
-      <ol class="rows cols">
-        <li class="job">
-          <div class="stack-2"><h3>Full-Stack Developer Intern</h3><p>Finstein Advizory Service LLP<br>July 2026 to present</p></div>
-                      <ul class="duties">
+      <ol class="timeline">
+        <li class="tl">
+          <span class="tl__dot is-now" aria-hidden="true"></span>
+          <article class="card tl__card m-nolift">
+            <div class="tl__top">
+              <div><h2 class="tl__role">Full-Stack Developer Intern</h2><p class="tl__org">Finstein Advizory Service LLP</p></div>
+              <p class="tl__when"><span class="badge-now">Current</span><span>July 2026 – Present</span></p>
+            </div>
+            <ul class="points">
               <li>Developing and testing backend services using Python and FastAPI.</li>
               <li>Building and integrating REST APIs for frontend-backend communication.</li>
               <li>Working with PostgreSQL for backend data storage and querying across projects.</li>
               <li>Gaining hands-on exposure to data engineering workflows using Databricks and PySpark.</li>
               <li>Working with development and testing workflows as part of application development.</li>
             </ul>
+            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:rest|REST APIs}}{{tag:postgresql|PostgreSQL}}{{tag:databricks|Databricks}}{{tag:pyspark|PySpark}}</ul>
+          </article>
         </li>
-        <li class="job">
-          <div class="stack-2"><h3>MERN Stack Development Intern</h3><p>Altruisty<br>November 2025</p></div>
-                      <ul class="duties">
+        <li class="tl">
+          <span class="tl__dot" aria-hidden="true"></span>
+          <article class="card tl__card m-nolift">
+            <div class="tl__top">
+              <div><h2 class="tl__role">MERN Stack Development Intern</h2><p class="tl__org">Altruisty</p></div>
+              <p class="tl__when"><span>November 2025</span></p>
+            </div>
+            <ul class="points">
               <li>Built frontend components in React.js.</li>
               <li>Wrote server-side code with Node.js and Express.js, with MongoDB for storage.</li>
               <li>Integrated REST APIs between frontend and backend, using Git and GitHub for version control.</li>
             </ul>
+            <ul class="tech">{{tag:react|React.js}}{{tag:nodejs|Node.js}}{{tag:express|Express.js}}{{tag:mongodb|MongoDB}}{{tag:rest|REST APIs}}{{tag:git|Git}}{{tag:github|GitHub}}</ul>
+          </article>
         </li>
-        <li class="job">
-          <div class="stack-2"><h3>Computer Science Intern</h3><p>Chennai Metro Rail Limited<br>June 2025</p></div>
-          <ul class="duties">
-            <li>Worked with IT systems for data management, software monitoring and troubleshooting.</li>
-            <li>Gained practical exposure to enterprise networking, relational databases and process automation.</li>
-          </ul>
+        <li class="tl">
+          <span class="tl__dot" aria-hidden="true"></span>
+          <article class="card tl__card m-nolift">
+            <div class="tl__top">
+              <div><h2 class="tl__role">Computer Science Intern</h2><p class="tl__org">Chennai Metro Rail Limited</p></div>
+              <p class="tl__when"><span>June 2025</span></p>
+            </div>
+            <ul class="points">
+              <li>Worked with IT systems for data management, software monitoring and troubleshooting.</li>
+              <li>Gained practical exposure to enterprise networking, relational databases and process automation.</li>
+            </ul>
+            <ul class="tech"><li class="plain">IT systems</li><li class="plain">Networking</li><li class="plain">Relational databases</li><li class="plain">Process automation</li></ul>
+          </article>
         </li>
-        <li class="job">
-          <div class="stack-2"><h3>Data Analytics Intern</h3><p>Tata Virtual Internship<br>May 2025</p></div>
-          <ul class="duties">
-            <li>Analysed business datasets and drew insights using data visualisation techniques.</li>
-            <li>Built dashboards and reports to support data-driven decisions.</li>
-          </ul>
+        <li class="tl">
+          <span class="tl__dot" aria-hidden="true"></span>
+          <article class="card tl__card m-nolift">
+            <div class="tl__top">
+              <div><h2 class="tl__role">Data Analytics Intern</h2><p class="tl__org">Tata Virtual Internship</p></div>
+              <p class="tl__when"><span>May 2025</span></p>
+            </div>
+            <ul class="points">
+              <li>Analysed business datasets and drew insights using data visualisation techniques.</li>
+              <li>Built dashboards and reports to support data-driven decisions.</li>
+            </ul>
+            <ul class="tech">{{tag:excel|Excel}}{{tag:mysql|MySQL}}{{tag:sql|SQL}}{{tag:colab|Google Colab}}{{tag:powerbi|Power BI}}{{tag:tableau|Tableau}}{{tag:python|Python}}</ul>
+          </article>
         </li>
       </ol>
     </div>
@@ -245,154 +385,166 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
         <h1 id="page-h">Projects</h1>
         <p>Ten projects I built, from AI apps and workflow automation to full-stack web apps. Each one links to its source on GitHub.</p>
       </div>
-      <div class="group">
-        <div class="section-head">
-          <h2 id="projects-h">AI and workflow automation projects</h2>
-        </div>
-        <div class="grid">
-          <article class="card proj span-4">
+      <div class="filters" role="group" aria-label="Show projects">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="ai" aria-pressed="false">AI and automation</button>
+        <button type="button" data-filter="fullstack" aria-pressed="false">Full-stack</button>
+        <button type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
+      </div>
+      <div class="proj-grid">
+          <article class="card proj proj--feature" data-cat="ai">
             <img class="proj__shot" src="assets/img/projects/employee-wellbeing.svg" alt="Employee wellbeing activity dashboard" width="640" height="400" loading="lazy">
-            <p class="t-label muted">Team project · AI · Full-stack</p>
-            <h3>Employee wellbeing and activity monitoring</h3>
-            <p>A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">Team project · AI · Full-stack</p>
+              <h3>Employee wellbeing and activity monitoring</h3>
+              <p class="proj-result"><b>95%</b><span>positive evaluation of the chosen LLM</span></p>
+              <p>A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
+              <ul class="points">
               <li>Developed an activity monitoring system with encrypted local storage, automatic synchronisation and retry handling.</li>
               <li>Built FastAPI APIs with PostgreSQL and an AI orchestrator for agent selection and coordination, enabling activity tracking, employee dashboards and AI-powered wellbeing reminders.</li>
               <li>Evaluated 2 LLMs (Qwen 3 and OpenAI) on identical prompts and selected OpenAI for its response quality, achieving <strong>95% positive evaluation</strong> results.</li>
-            </ul>
-            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:typescript|TypeScript}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
-            <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:typescript|TypeScript}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
+              <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
+            </div>
           </article>
-          <article class="card proj span-4">
+          <article class="card proj proj--feature" data-cat="ai">
             <img class="proj__shot" src="assets/img/projects/food-nutrition.svg" alt="Meal photo with AI calorie estimate" width="640" height="400" loading="lazy">
-            <p class="t-label muted">AI · Full-stack</p>
-            <h3>Food and nutrition tracking system</h3>
-            <p>An AI-powered food tracking app with image-based food analysis, calorie estimation and personalised nutrition recommendations.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">AI · Full-stack</p>
+              <h3>Food and nutrition tracking system</h3>
+              <p class="proj-result"><b>75%</b><span>satisfactory calorie estimates</span></p>
+              <p>An AI-powered food tracking app with image-based food analysis, calorie estimation and personalised nutrition recommendations.</p>
+              <ul class="points">
               <li>Built FastAPI APIs for authentication, meal tracking, food image analysis and water management, integrating PostgreSQL and AWS S3.</li>
               <li>Tested the food image analysis and achieved <strong>75% satisfactory calorie estimation</strong> results.</li>
               <li>Implemented and tested automated meal and water reminders.</li>
-            </ul>
-            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3}}<li class="plain">Boto3</li></ul>
-            <a class="link" href="https://github.com/Sandhya192005/Food-Agent">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3}}<li class="plain">Boto3</li></ul>
+              <a class="link" href="https://github.com/Sandhya192005/Food-Agent">See the source on GitHub</a>
+            </div>
           </article>
-          <article class="card proj span-4">
+          <article class="card proj proj--feature" data-cat="ai">
             <img class="proj__shot" src="assets/img/projects/cargo-email.svg" alt="Cargo email automation workflow" width="640" height="400" loading="lazy">
-            <p class="t-label muted">AI · Workflow automation</p>
-            <h3>Cargo shipment email automation</h3>
-            <p>An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">AI · Workflow automation</p>
+              <h3>Cargo shipment email automation</h3>
+              <p class="proj-result"><b>82%</b><span>less manual processing effort</span></p>
+              <p>An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
+              <ul class="points">
               <li>Developed an n8n workflow to monitor and process incoming cargo shipment emails from Microsoft Outlook.</li>
               <li>Automated extraction of shipment details: customer names, container numbers, ports, vessel details, ETD, ETA and shipment status.</li>
               <li>Matched customers against master Excel records and generated customer-specific shipment reports, <strong>reducing manual processing effort by 82%</strong>.</li>
-            </ul>
-            <ul class="tech">{{tag:n8n|n8n}}<li class="plain">Microsoft Outlook</li>{{tag:llm|Claude AI}}<li class="plain">Excel</li><li class="plain">OneDrive</li></ul>
-            <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:n8n|n8n}}<li class="plain">Microsoft Outlook</li>{{tag:llm|Claude AI}}<li class="plain">Excel</li><li class="plain">OneDrive</li></ul>
+              <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
+            </div>
           </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="more-projects" aria-labelledby="more-h">
-    <div class="wrap">
-      <div class="group">
-        <div class="section-head">
-          <h2 id="more-h">Full-stack projects</h2>
-        </div>
-        <div class="grid">
-          <article class="card proj span-4">
+          <article class="card proj proj--feature" data-cat="fullstack">
             <img class="proj__shot" src="assets/img/projects/mediconnect.svg" alt="Doctor search with available slots" width="640" height="400" loading="lazy">
-            <p class="t-label muted">Full-stack · Background jobs</p>
-            <h3>MediConnect</h3>
-            <p>A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">Full-stack · Background jobs</p>
+              <h3>MediConnect</h3>
+              <p>A hospital appointment booking app with separate roles for patients, doctors and admins.</p>
+              <ul class="points">
               <li>Doctor search by department, hospital and city, with live free slots.</li>
               <li>Celery sends booking, confirmation and reminder emails.</li>
               <li>Redis queue and slot cache. The whole stack runs in Docker Compose.</li>
-            </ul>
-            <ul class="tech">{{tag:django|Django}}{{tag:nextjs|Next.js}}{{tag:postgresql|PostgreSQL}}{{tag:celery|Celery}}{{tag:redis|Redis}}{{tag:docker|Docker}}</ul>
-            <a class="link" href="https://github.com/Sandhya192005/MediConnect">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:django|Django}}{{tag:nextjs|Next.js}}{{tag:postgresql|PostgreSQL}}{{tag:celery|Celery}}{{tag:redis|Redis}}{{tag:docker|Docker}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/MediConnect">See the source on GitHub</a>
+            </div>
           </article>
-          <article class="card proj span-4">
+          <article class="card proj proj--feature" data-cat="fullstack">
             <img class="proj__shot" src="assets/img/projects/home-layout.svg" alt="Generated floor plan with cost estimate" width="640" height="400" loading="lazy">
-            <p class="t-label muted">Full-stack · Generative design</p>
-            <h3>Home layout</h3>
-            <p>Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">Full-stack · Generative design</p>
+              <h3>Home layout</h3>
+              <p>Turns home-building requirements into a dimensioned floor plan in 2D and 3D, with a cost estimate.</p>
+              <ul class="points">
               <li>Generates plans from geometry and rules, with Vastu zoning and parking.</li>
               <li>Three.js 3D walkthrough and a drag-to-edit layout editor.</li>
               <li>Versioned plan history, JWT auth, and PNG and PDF export.</li>
-            </ul>
-            <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:threejs|Three.js}}</ul>
-            <a class="link" href="https://github.com/Sandhya192005/home-layout">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:threejs|Three.js}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/home-layout">See the source on GitHub</a>
+            </div>
           </article>
-          <article class="card proj span-4">
+          <article class="card proj proj--feature" data-cat="fullstack">
             <img class="proj__shot" src="assets/img/projects/book-swapper.svg" alt="Book listings with swap and borrow filters" width="640" height="400" loading="lazy">
-            <p class="t-label muted">Frontend · Web app</p>
-            <h3>Book Swapper</h3>
-            <p>A web app for listing and finding books to sell, swap, borrow or donate.</p>
-            <ul class="points">
+            <div class="proj__body">
+              <p class="t-label muted">Full-stack · Web app</p>
+              <h3>Book Swapper</h3>
+              <p>A web app for listing and finding books to sell, swap, borrow or donate.</p>
+              <ul class="points">
               <li>Search with filters and book detail pages with location info.</li>
               <li>Send and track swap and borrow requests.</li>
               <li>Favourites, star ratings and a light/dark theme.</li>
-            </ul>
-            <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}</ul>
-            <a class="link" href="https://github.com/Sandhya192005/book-swapper">See the source on GitHub</a>
+              </ul>
+              <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}{{tag:mongodb|MongoDB}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/book-swapper">See the source on GitHub</a>
+            </div>
           </article>
-        <article class="card proj span-4">
-          <img class="proj__shot" src="assets/img/projects/budget-tracker.svg" alt="Monthly budget and recent transactions" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Frontend · Personal finance</p>
-          <h3>Budget tracker</h3>
-          <p>A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
-          <ul class="points">
-            <li>Add, edit and delete transactions by category.</li>
-            <li>Monthly budget for each category with progress tracking.</li>
-            <li>Dashboard with spending stats and charts.</li>
-          </ul>
-          <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}<li class="plain">Recharts</li></ul>
-          <a class="link" href="https://github.com/Sandhya192005/budget-tracker">See the source on GitHub</a>
-        </article>
-        <article class="card proj span-4">
-          <img class="proj__shot" src="assets/img/projects/product-review.svg" alt="Product cards with star ratings" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Frontend · Web app</p>
-          <h3>Product review system</h3>
-          <p>A login-protected app for adding products with a star rating and a written review.</p>
-          <ul class="points">
-            <li>Sign-up and login with SHA-256 hashed passwords.</li>
-            <li>Live search by product name or details.</li>
-            <li>Responsive card layout with no frameworks.</li>
-          </ul>
-          <ul class="tech">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
-          <a class="link" href="https://github.com/Sandhya192005/product-review-system">See the source on GitHub</a>
-        </article>
-        <article class="card proj span-4">
-          <img class="proj__shot" src="assets/img/projects/donor-list.svg" alt="Searchable donor table" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Frontend · Web app</p>
-          <h3>Donor list management</h3>
-          <p>A donor management app for keeping a searchable list of donors and what they donated.</p>
-          <ul class="points">
-            <li>Sign-up and login with a protected home page.</li>
-            <li>Add, edit and delete donor records.</li>
-            <li>Search donors by the organ or item donated.</li>
-          </ul>
-          <ul class="tech">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
-          <a class="link" href="https://github.com/Sandhya192005/donor-list-management">See the source on GitHub</a>
-        </article>
-        <article class="card proj span-4">
-          <img class="proj__shot" src="assets/img/projects/cgpa.svg" alt="Semester grades and overall CGPA" width="640" height="400" loading="lazy">
-          <p class="t-label muted">Utility · Web app</p>
-          <h3>CGPA calculator</h3>
-          <p>A browser tool that works out semester GPAs and an overall CGPA for an 8-semester degree.</p>
-          <ul class="points">
-            <li>Subjects and credits preloaded for each semester.</li>
-            <li>Converts letter grades (O to D) into grade points.</li>
-            <li>Credit-weighted CGPA, with a matching Python notebook.</li>
-          </ul>
-          <ul class="tech">{{tag:javascript|JavaScript}}{{tag:html|HTML}}{{tag:css|CSS}}{{tag:python|Python}}</ul>
-          <a class="link" href="https://github.com/Sandhya192005/CGPA-calculator">See the source on GitHub</a>
-        </article>
-        </div>
+          <article class="card proj proj--feature" data-cat="fullstack">
+            <img class="proj__shot" src="assets/img/projects/budget-tracker.svg" alt="Monthly budget and recent transactions" width="640" height="400" loading="lazy">
+            <div class="proj__body">
+              <p class="t-label muted">Full-stack · Personal finance</p>
+              <h3>Budget tracker</h3>
+              <p>A personal budgeting app for logging income and expenses and keeping to category budgets.</p>
+              <ul class="points">
+              <li>Add, edit and delete transactions by category.</li>
+              <li>Monthly budget for each category with progress tracking.</li>
+              <li>Dashboard with spending stats and charts.</li>
+              </ul>
+              <ul class="tech">{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:vite|Vite}}{{tag:tailwind|Tailwind CSS}}<li class="plain">Recharts</li>{{tag:mongodb|MongoDB}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/budget-tracker">See the source on GitHub</a>
+            </div>
+          </article>
+          <article class="card proj proj--feature" data-cat="frontend">
+            <img class="proj__shot" src="assets/img/projects/product-review.svg" alt="Product cards with star ratings" width="640" height="400" loading="lazy">
+            <div class="proj__body">
+              <p class="t-label muted">Frontend · Web app</p>
+              <h3>Product review system</h3>
+              <p>A login-protected app for adding products with a star rating and a written review.</p>
+              <ul class="points">
+              <li>Sign-up and login with SHA-256 hashed passwords.</li>
+              <li>Live search by product name or details.</li>
+              <li>Responsive card layout with no frameworks.</li>
+              </ul>
+              <ul class="tech">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/product-review-system">See the source on GitHub</a>
+            </div>
+          </article>
+          <article class="card proj proj--feature" data-cat="frontend">
+            <img class="proj__shot" src="assets/img/projects/donor-list.svg" alt="Searchable donor table" width="640" height="400" loading="lazy">
+            <div class="proj__body">
+              <p class="t-label muted">Frontend · Web app</p>
+              <h3>Donor list management</h3>
+              <p>A donor management app for keeping a searchable list of donors and what they donated.</p>
+              <ul class="points">
+              <li>Sign-up and login with a protected home page.</li>
+              <li>Add, edit and delete donor records.</li>
+              <li>Search donors by the organ or item donated.</li>
+              </ul>
+              <ul class="tech">{{tag:html|HTML}}{{tag:css|CSS}}{{tag:javascript|JavaScript}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/donor-list-management">See the source on GitHub</a>
+            </div>
+          </article>
+          <article class="card proj proj--feature" data-cat="frontend">
+            <img class="proj__shot" src="assets/img/projects/cgpa.svg" alt="Semester grades and overall CGPA" width="640" height="400" loading="lazy">
+            <div class="proj__body">
+              <p class="t-label muted">Utility · Web app</p>
+              <h3>CGPA calculator</h3>
+              <p>A browser tool that works out semester GPAs and an overall CGPA for an 8-semester degree.</p>
+              <ul class="points">
+              <li>Subjects and credits preloaded for each semester.</li>
+              <li>Converts letter grades (O to D) into grade points.</li>
+              <li>Credit-weighted CGPA, with a matching Python notebook.</li>
+              </ul>
+              <ul class="tech">{{tag:javascript|JavaScript}}{{tag:html|HTML}}{{tag:css|CSS}}{{tag:python|Python}}</ul>
+              <a class="link" href="https://github.com/Sandhya192005/CGPA-calculator">See the source on GitHub</a>
+            </div>
+          </article>
       </div>
     </div>
   </section>
@@ -402,26 +554,35 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
     <div class="wrap">
       <div class="section-head page-head">
         <a class="link" href="index.html">Back to home</a>
-        <h1 id="education-h">Education and certificates</h1>
+        <h1 id="education-h">Education, certificates and awards</h1>
         <p>My degree, schooling, certificates and awards.</p>
       </div>
-      <div class="grid">
-        <div class="card m-nolift span-6">
-          <h3>Education</h3>
-          <ul class="rows">
-            <li><span class="rows__name">B.E. Computer Science and Engineering</span><span class="rows__value">2023 to 2027</span><p>Velammal Engineering College · CGPA 8.26 of 10</p></li>
-            <li><span class="rows__name">Higher Secondary (Class XII)</span><span class="rows__value">2023</span><p>Don Bosco Matriculation Hr. Sec. School · 79.9% (479 of 600)</p></li>
-          </ul>
-        </div>
-        <div class="card m-nolift span-6 start-7">
-          <h3>Certificates and awards</h3>
-          <ul class="rows">
-            <li><span class="rows__name">Database Management Systems</span><span class="rows__value">NPTEL</span></li>
-            <li><span class="rows__name">Python for Data Science</span><span class="rows__value">NPTEL</span></li>
-            <li><span class="rows__name">Introduction to Cloud Computing - IBM</span><span class="rows__value">Coursera</span></li>
-            <li><span class="rows__name">3rd prize, technical paper presentation</span><span class="rows__value">VEC</span><p>Paper on an e-commerce website, Velammal Engineering College</p></li>
-          </ul>
-        </div>
+      <div class="edu-grid">
+        <article class="card edu edu--degree m-nolift">
+          <span class="edu__icon">{{logo:i_grad}}</span>
+          <p class="t-label muted">Degree · 2023 to 2027</p>
+          <h2>B.E. Computer Science and Engineering</h2>
+          <p class="edu__place">Velammal Engineering College</p>
+          <div class="edu__figures"><div><b>8.26</b><span>CGPA of 10</span></div><div><b>Final year</b><span>Graduating 2027</span></div></div>
+          <div class="progress" data-start="2023-07-01" data-end="2027-06-01" role="img" aria-label="Degree progress, 2023 to 2027"><span class="progress__bar" style="width: 85%"></span></div>
+          <div class="progress__labels"><span>2023</span><span>2027</span></div>
+        </article>
+        <article class="card edu m-nolift">
+          <span class="edu__icon">{{logo:i_school}}</span>
+          <p class="t-label muted">Higher Secondary (Class XII) · 2023</p>
+          <h2>Don Bosco Matriculation Hr. Sec. School</h2>
+          <div class="edu__figures"><div><b>79.9%</b><span>479 of 600</span></div></div>
+        </article>
+      </div>
+      <h2 class="sub-h">Certificates</h2>
+      <div class="cert-grid">
+        <article class="card cert m-nolift"><span class="cert__issuer cert__issuer--logo"><img src="assets/img/nptel-logo.jpg" alt="NPTEL" width="148" height="34"></span><h3>Database Management Systems</h3></article>
+        <article class="card cert m-nolift"><span class="cert__issuer cert__issuer--logo"><img src="assets/img/nptel-logo.jpg" alt="NPTEL" width="148" height="34"></span><h3>Python for Data Science</h3></article>
+        <article class="card cert m-nolift"><span class="cert__issuer">{{logo:coursera}}<span>Coursera</span></span><h3>Introduction to Cloud Computing - IBM</h3></article>
+      </div>
+      <h2 class="sub-h">Awards</h2>
+      <div class="award-grid">
+        <article class="card cert cert--award m-nolift">{{logo:i_trophy}}<h3>3rd prize, technical paper presentation</h3><p>Paper on an e-commerce website</p><p class="muted">Velammal Engineering College</p></article>
       </div>
     </div>
   </section>
@@ -459,6 +620,23 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
 <script>
+// filter buttons on the skills and projects pages: show only the cards for the chosen area
+document.querySelectorAll(".filters").forEach(group => {
+  const items = [...group.parentElement.querySelectorAll("[data-cat]")];
+  group.addEventListener("click", e => {
+    const b = e.target.closest("button[data-filter]");
+    if (!b) return;
+    group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    const f = b.dataset.filter;
+    items.forEach(it => { it.hidden = f !== "all" && !it.dataset.cat.split(" ").includes(f); });
+  });
+});
+// education: fill the degree bar up to today
+document.querySelectorAll(".progress[data-start]").forEach(p => {
+  const s = Date.parse(p.dataset.start), e = Date.parse(p.dataset.end);
+  const pct = Math.min(100, Math.max(0, (Date.now() - s) / (e - s) * 100));
+  p.firstElementChild.style.width = pct.toFixed(1) + "%";
+});
 // shrinks the hero title only when the longest role and its icon would not fit its column,
 // so every role stays on one line and the title never jumps while it types
 (() => {

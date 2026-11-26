@@ -29,7 +29,7 @@
   --display-tracking-xl: -0.038em;
 }
 </style>
-<!-- page CSS: the round portrait, the tool chips, and the 12-column rows for skills and jobs -->
+<!-- page CSS: the round portrait, the tool chips, and the layouts of the skills, experience, projects and education pages -->
 <style>
 /* round portrait on desktop and phone; on a tablet the kit's full-width frame fills what the words leave */
 @media (min-width: 1024px) {
@@ -41,9 +41,6 @@
   main > .hero { height: auto; min-height: 100svh; }
   .hero > .wrap { height: auto; }
   .hero .hero-facts { display: grid; margin-top: var(--s-5); }
-  /* education and certificates: the year or issuer goes under the name instead of squeezing it */
-  #education .rows > li { grid-template-columns: minmax(0, 1fr); }
-  #education .rows__value { grid-column: 1; grid-row: auto; text-align: left; color: var(--muted); font-size: var(--t-small); }
 }
 
 /* short laptop windows and phones: a section grows past its screen rather than slide under the next one
@@ -65,26 +62,11 @@
 .tech .ic { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff; flex: none; }
 .tech .ic img { width: 18px; height: 18px; object-fit: contain; }
 
-.rows.cols > li { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-.rows.cols > li > :first-child { grid-column: 1 / span 3; }
-.rows.cols > li > :last-child { grid-column: 4 / -1; }
-#experience .rows.cols > li > :first-child { grid-column: 1 / span 6; }
-#experience .rows.cols > li > :last-child { grid-column: 7 / -1; }
-.job h3 { font: 500 var(--t-card)/1.3 var(--font-text); }
-.job p { color: var(--muted); }
-.duties { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s-2); }
-@media (max-width: 639px) {
-  .rows.cols > li > :first-child, .rows.cols > li > :last-child,
-  #experience .rows.cols > li > :first-child, #experience .rows.cols > li > :last-child { grid-column: 1 / -1; }
-}
 
 .proj { display: flex; flex-direction: column; gap: var(--s-3); }
 .proj > p { max-width: none; }
 .proj > .tech { padding-top: var(--s-1); }
 .proj > .link { align-self: start; }
-/* with pictures the project sections can run taller than two screens, so they grow instead of clipping */
-#projects, #more-projects { height: auto; min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
-#projects > .wrap, #more-projects > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
 /* each inner page opens under the fixed nav with its own heading and grows with its content */
 main > .section.page-top { padding-top: calc(var(--nav) + var(--section)); height: auto; min-height: 100svh; display: flex; flex-direction: column; }
 main > .section.page-top > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
@@ -92,16 +74,104 @@ main > .section.page-top > .wrap { flex: 1 0 auto; height: auto; min-height: 0; 
 .page-head > .link { justify-self: start; }
 main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 .proj > .proj__shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: var(--r-md); border: 1px solid var(--line); margin-bottom: var(--s-2); }
-#education .card { gap: var(--s-5); }
-#education .rows__name { font-size: var(--t-lead); }
 .points { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 2px; }
+
+/* ---- inner pages: a stats line under each heading, filter buttons, and each page's own layout ---- */
+.stats { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-8); }
+.stats > li { display: grid; gap: 4px; }
+.stats b { font: var(--display-weight) clamp(1.75rem, 3vw, 2.5rem)/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+.stats span { font-size: var(--t-small); color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0 0 var(--s-5); }
+.filters button { font: 500 var(--t-small)/1 var(--font-text); min-height: 40px; padding: 0 var(--s-4); border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: transparent; color: var(--ink); transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+.filters button:hover { border-color: var(--p-accent); }
+.filters button[aria-pressed="true"] { background: var(--p-accent); border-color: var(--p-accent); color: var(--p-accent-ink); }
+[data-cat][hidden] { display: none !important; }
+.sub-h { font: 500 var(--t-card)/1.3 var(--font-text); margin: var(--s-8) 0 var(--s-4); }
+
+/* skills: the core stack, then one card per area in up to three columns */
+.skill-card__head { display: flex; align-items: center; gap: var(--s-3); }
+.skill-card__head img { width: 22px; height: 22px; flex: none; }
+.skill-card__head h2 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.skill-card__count { margin-left: auto; font-size: var(--t-small); color: var(--muted); white-space: nowrap; }
+.core { gap: var(--s-4); margin-bottom: var(--s-7); }
+.tech--lg > li { min-height: 48px; font-size: var(--t-body); padding-right: var(--s-4); }
+.tech--lg .ic { width: 32px; height: 32px; }
+.tech--lg .ic img { width: 24px; height: 24px; }
+.skill-grid { columns: 3 320px; column-gap: var(--s-4); }
+.skill-card { gap: var(--s-4); break-inside: avoid; margin-bottom: var(--s-4); }
+
+/* experience: a timeline, newest first, the current job marked */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); position: relative; }
+.tl { position: relative; }
+.tl:not(:last-child)::before { content: ""; position: absolute; left: 11px; top: 54px; bottom: calc(-1 * var(--s-5) - 30px); width: 2px; background: color-mix(in oklab, var(--p-accent) 30%, var(--line)); }
+.tl { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--s-5); align-items: start; }
+.tl__dot { position: relative; z-index: 1; width: 24px; height: 24px; margin-top: 30px; border-radius: 50%; background: var(--p-bg); border: 2px solid var(--p-accent); }
+.tl__dot.is-now { background: var(--p-accent); box-shadow: 0 0 0 6px color-mix(in oklab, var(--p-accent) 18%, transparent); }
+.tl__card { gap: var(--s-4); }
+.tl__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--s-2) var(--s-5); }
+.tl__role { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.tl__org { color: var(--muted); margin: 2px 0 0; }
+.tl__when { display: flex; align-items: center; gap: var(--s-3); margin: 0; font-size: var(--t-small); color: var(--muted); white-space: nowrap; }
+.badge-now { padding: 4px 10px; border-radius: 999px; background: var(--p-accent); color: var(--p-accent-ink); font-weight: 500; font-size: var(--t-label); }
+@media (max-width: 639px) {
+  .tl:not(:last-child)::before { left: 7px; top: 42px; bottom: calc(-1 * var(--s-5) - 26px); }
+  .tl { grid-template-columns: 16px minmax(0, 1fr); gap: var(--s-3); }
+  .tl__dot { width: 16px; height: 16px; margin-top: 26px; }
+  .tl__dot.is-now { box-shadow: 0 0 0 4px color-mix(in oklab, var(--p-accent) 18%, transparent); }
+}
+
+/* projects: the three AI projects as wide featured cards with their result, the rest in a grid */
+.proj-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+.proj--feature { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-6); align-items: start; }
+.proj--feature > .proj__shot { margin: 0; }
+.proj__body { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+.proj__body > h3 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.proj__body > .link { align-self: start; }
+.proj-result { display: flex; align-items: center; gap: var(--s-4); margin: var(--s-1) 0; padding: var(--s-3) var(--s-4); border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--p-accent) 9%, var(--card)); }
+.proj-result b { font: var(--display-weight) 2.5rem/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+@media (max-width: 1023px) {
+  .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj--feature { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+}
+@media (max-width: 639px) { .proj-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* education: the degree with its CGPA and progress, the school, then certificate badges */
+.edu-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gutter); align-items: stretch; }
+.edu { gap: var(--s-3); }
+.edu h2 { font: 500 var(--t-card)/1.3 var(--font-text); margin: 0; }
+.edu__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: color-mix(in oklab, var(--p-accent) 10%, var(--card)); margin-bottom: var(--s-2); }
+.edu__icon img { width: 26px; height: 26px; }
+.edu__place { color: var(--muted); margin: 0; }
+.edu__figures { display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-8); margin-top: var(--s-3); }
+.edu__figures > div { display: grid; gap: 4px; }
+.edu__figures b { font: var(--display-weight) 2.25rem/1 var(--font-display); letter-spacing: var(--display-tracking); color: var(--p-accent); }
+.edu__figures span { font-size: var(--t-small); color: var(--muted); }
+.progress { height: 10px; margin-top: var(--s-4); border-radius: 999px; background: color-mix(in oklab, var(--p-accent) 12%, var(--card)); overflow: hidden; }
+.progress__bar { display: block; height: 100%; border-radius: inherit; background: var(--p-accent); }
+.progress__labels { display: flex; justify-content: space-between; font-size: var(--t-small); color: var(--muted); }
+.cert-grid, .award-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+@media (max-width: 1023px) { .cert-grid, .award-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 479px) { .cert-grid, .award-grid { grid-template-columns: minmax(0, 1fr); } }
+.cert { gap: var(--s-2); }
+.cert > img { width: 28px; height: 28px; margin-bottom: var(--s-2); }
+/* the issuer's logo at the top of each certificate */
+.cert__issuer { display: inline-flex; align-items: center; gap: var(--s-2); align-self: start; height: 36px; padding: 0 var(--s-3); margin-bottom: var(--s-2);
+  border-radius: 10px; background: #fff; border: 1px solid var(--line); font-weight: 600; font-size: var(--t-small); color: var(--ink); }
+.cert__issuer img { width: 20px; height: 20px; }
+.cert__issuer--logo img { width: auto; height: 22px; } /* NPTEL's own logo (from nptel.ac.in), emblem and name together */
+.cert > h3 { font: 500 var(--t-lead, 1.125rem)/1.35 var(--font-text); margin: 0; }
+.cert > p { margin: 0; font-size: var(--t-body); }
+.cert--award { background: color-mix(in oklab, var(--p-accent) 8%, var(--card)); border-color: color-mix(in oklab, var(--p-accent) 25%, var(--line)); }
+@media (max-width: 1023px) { .edu-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* hero title types out each role in turn; with reduced motion it stays on the first */
 .typed::after { content: ""; display: inline-block; width: 0.06em; height: 0.9em; margin-left: 0.06em; vertical-align: -0.08em;
   background: var(--p-accent); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .typed::after { animation: none; } }
-/* a small icon before each role: code brackets, the DevOps loop (Dev and Ops halves in two shades), sparkles.
+/* a small icon before each role: code brackets, the DevOps loop (Dev and Ops halves in two shades), a neural network.
    The icon for the role being typed fades in; the others stay hidden */
 .role { white-space: nowrap; }
 .role__icon { display: inline-grid; width: 0.74em; height: 0.74em; margin-right: 0.2em; vertical-align: -0.04em; color: var(--p-accent); }
@@ -110,8 +180,9 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 .role__icon .loop-ops { stroke: #d0708e; }
 /* the loop is wide, so its box widens while DevOps is shown (the word is empty at that moment, so nothing jumps) */
 .role__icon { transition: width 0.3s ease; }
-.role[data-i="1"] .role__icon { width: 1.2em; }
+.role[data-i="1"] .role__icon { width: 1.25em; }
 .role__icon .ri-1 { stroke-width: 1.7; }
+.role__icon .ri-2 circle { fill: var(--p-bg); } /* the nodes sit on top of the lines */
 .role[data-i="0"] .ri-0, .role[data-i="1"] .ri-1, .role[data-i="2"] .ri-2 { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .role__icon svg { transition: none; } }
 </style>
@@ -146,26 +217,35 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
     <div class="wrap">
       <div class="section-head page-head">
         <a class="link" href="index.html">Back to home</a>
-        <h1 id="education-h">Education and certificates</h1>
+        <h1 id="education-h">Education, certificates and awards</h1>
         <p>My degree, schooling, certificates and awards.</p>
       </div>
-      <div class="grid">
-        <div class="card m-nolift span-6">
-          <h3>Education</h3>
-          <ul class="rows">
-            <li><span class="rows__name">B.E. Computer Science and Engineering</span><span class="rows__value">2023 to 2027</span><p>Velammal Engineering College · CGPA 8.26 of 10</p></li>
-            <li><span class="rows__name">Higher Secondary (Class XII)</span><span class="rows__value">2023</span><p>Don Bosco Matriculation Hr. Sec. School · 79.9% (479 of 600)</p></li>
-          </ul>
-        </div>
-        <div class="card m-nolift span-6 start-7">
-          <h3>Certificates and awards</h3>
-          <ul class="rows">
-            <li><span class="rows__name">Database Management Systems</span><span class="rows__value">NPTEL</span></li>
-            <li><span class="rows__name">Python for Data Science</span><span class="rows__value">NPTEL</span></li>
-            <li><span class="rows__name">Introduction to Cloud Computing - IBM</span><span class="rows__value">Coursera</span></li>
-            <li><span class="rows__name">3rd prize, technical paper presentation</span><span class="rows__value">VEC</span><p>Paper on an e-commerce website, Velammal Engineering College</p></li>
-          </ul>
-        </div>
+      <div class="edu-grid">
+        <article class="card edu edu--degree m-nolift">
+          <span class="edu__icon"><img src="data:image/svg+xml;base64,PCEtLSBAbGljZW5zZSBsdWNpZGUtc3RhdGljIHYwLjQ2MC4wIC0gSVNDIC0tPgo8c3ZnCiAgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtZ3JhZHVhdGlvbi1jYXAiCiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzllMmE0YSIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMjEuNDIgMTAuOTIyYTEgMSAwIDAgMC0uMDE5LTEuODM4TDEyLjgzIDUuMThhMiAyIDAgMCAwLTEuNjYgMEwyLjYgOS4wOGExIDEgMCAwIDAgMCAxLjgzMmw4LjU3IDMuOTA4YTIgMiAwIDAgMCAxLjY2IDB6IiAvPgogIDxwYXRoIGQ9Ik0yMiAxMHY2IiAvPgogIDxwYXRoIGQ9Ik02IDEyLjVWMTZhNiAzIDAgMCAwIDEyIDB2LTMuNSIgLz4KPC9zdmc+Cg==" alt="" width="20" height="20"></span>
+          <p class="t-label muted">Degree · 2023 to 2027</p>
+          <h2>B.E. Computer Science and Engineering</h2>
+          <p class="edu__place">Velammal Engineering College</p>
+          <div class="edu__figures"><div><b>8.26</b><span>CGPA of 10</span></div><div><b>Final year</b><span>Graduating 2027</span></div></div>
+          <div class="progress" data-start="2023-07-01" data-end="2027-06-01" role="img" aria-label="Degree progress, 2023 to 2027"><span class="progress__bar" style="width: 85%"></span></div>
+          <div class="progress__labels"><span>2023</span><span>2027</span></div>
+        </article>
+        <article class="card edu m-nolift">
+          <span class="edu__icon"><img src="data:image/svg+xml;base64,PCEtLSBAbGljZW5zZSBsdWNpZGUtc3RhdGljIHYwLjQ2MC4wIC0gSVNDIC0tPgo8c3ZnCiAgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtc2Nob29sIgogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiM5ZTJhNGEiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPHBhdGggZD0iTTE0IDIydi00YTIgMiAwIDEgMC00IDB2NCIgLz4KICA8cGF0aCBkPSJtMTggMTAgMy40NDcgMS43MjRhMSAxIDAgMCAxIC41NTMuODk0VjIwYTIgMiAwIDAgMS0yIDJINGEyIDIgMCAwIDEtMi0ydi03LjM4MmExIDEgMCAwIDEgLjU1My0uODk0TDYgMTAiIC8+CiAgPHBhdGggZD0iTTE4IDV2MTciIC8+CiAgPHBhdGggZD0ibTQgNiA3LjEwNi0zLjU1M2EyIDIgMCAwIDEgMS43ODggMEwyMCA2IiAvPgogIDxwYXRoIGQ9Ik02IDV2MTciIC8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSI5IiByPSIyIiAvPgo8L3N2Zz4K" alt="" width="20" height="20"></span>
+          <p class="t-label muted">Higher Secondary (Class XII) · 2023</p>
+          <h2>Don Bosco Matriculation Hr. Sec. School</h2>
+          <div class="edu__figures"><div><b>79.9%</b><span>479 of 600</span></div></div>
+        </article>
+      </div>
+      <h2 class="sub-h">Certificates</h2>
+      <div class="cert-grid">
+        <article class="card cert m-nolift"><span class="cert__issuer cert__issuer--logo"><img src="assets/img/nptel-logo.jpg" alt="NPTEL" width="148" height="34"></span><h3>Database Management Systems</h3></article>
+        <article class="card cert m-nolift"><span class="cert__issuer cert__issuer--logo"><img src="assets/img/nptel-logo.jpg" alt="NPTEL" width="148" height="34"></span><h3>Python for Data Science</h3></article>
+        <article class="card cert m-nolift"><span class="cert__issuer"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA1NkQyIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q291cnNlcmE8L3RpdGxlPjxwYXRoIGQ9Ik0xMS4zNzQgMjMuOTc3Yy00LjE4My0uMjEtOC4wMDYtMi42MjYtOS45NTktNi4zNDctMi4wOTctMy44NTgtMS44NzEtOC44NjQuNzMyLTEyLjQ1NEM0Ljc0OCAxLjMzOCA5LjQ5Ny0uNjk4IDE0LjI4MS4yM2M0LjU4My44NTcgOC4zNTEgNC40OTQgOS4zNTggOC45MTEgMS4xMjIgNC4zNDQtLjQyMyA5LjE3My0zLjkyNSAxMi4wNC0yLjI4OSAxLjk1My01LjI5NSAyLjk1Ni04LjM0IDIuNzk3em03LjcwNS04LjA1YTU4OC43MzcgNTg4LjczNyAwIDAgMC0zLjE3MS0xLjg4N2MtLjkwMyAxLjQ4My0yLjg4NSAyLjI0OC00LjU3IDEuNjY1LTIuMDI0LS42MzktMy4zOTQtMi45ODctMi40ODgtNS4xMzQuODAxLTIuMDA5IDIuNzktMi43MDcgNC4zNTctMi40NjRhNC4xOSA0LjE5IDAgMCAxIDIuNjIzIDEuNjY5YzEuMDc3LS42MzEgMi4xMjgtMS4yMTggMy4xNzMtMS44NTUtMi4wMy0zLjExOC02LjE1MS00LjI5NC05LjY1Ni0yLjc1NC0zLjEzIDEuNDIzLTQuODkgNC42OC00LjM4OCA3LjkxOS41NCAzLjU5OCAzLjczIDYuNDg2IDcuNzE2IDYuNDA0YTcuNjY0IDcuNjY0IDAgMCAwIDYuNDA0LTMuNTYzeiIvPjwvc3ZnPg==" alt="" width="20" height="20"><span>Coursera</span></span><h3>Introduction to Cloud Computing - IBM</h3></article>
+      </div>
+      <h2 class="sub-h">Awards</h2>
+      <div class="award-grid">
+        <article class="card cert cert--award m-nolift"><img src="data:image/svg+xml;base64,PCEtLSBAbGljZW5zZSBsdWNpZGUtc3RhdGljIHYwLjQ2MC4wIC0gSVNDIC0tPgo8c3ZnCiAgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtdHJvcGh5IgogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiM5ZTJhNGEiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPHBhdGggZD0iTTYgOUg0LjVhMi41IDIuNSAwIDAgMSAwLTVINiIgLz4KICA8cGF0aCBkPSJNMTggOWgxLjVhMi41IDIuNSAwIDAgMCAwLTVIMTgiIC8+CiAgPHBhdGggZD0iTTQgMjJoMTYiIC8+CiAgPHBhdGggZD0iTTEwIDE0LjY2VjE3YzAgLjU1LS40Ny45OC0uOTcgMS4yMUM3Ljg1IDE4Ljc1IDcgMjAuMjQgNyAyMiIgLz4KICA8cGF0aCBkPSJNMTQgMTQuNjZWMTdjMCAuNTUuNDcuOTguOTcgMS4yMUMxNi4xNSAxOC43NSAxNyAyMC4yNCAxNyAyMiIgLz4KICA8cGF0aCBkPSJNMTggMkg2djdhNiA2IDAgMCAwIDEyIDBWMloiIC8+Cjwvc3ZnPgo=" alt="" width="20" height="20"><h3>3rd prize, technical paper presentation</h3><p>Paper on an e-commerce website</p><p class="muted">Velammal Engineering College</p></article>
       </div>
     </div>
   </section>
@@ -202,6 +282,23 @@ main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
 <script>
+// filter buttons on the skills and projects pages: show only the cards for the chosen area
+document.querySelectorAll(".filters").forEach(group => {
+  const items = [...group.parentElement.querySelectorAll("[data-cat]")];
+  group.addEventListener("click", e => {
+    const b = e.target.closest("button[data-filter]");
+    if (!b) return;
+    group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    const f = b.dataset.filter;
+    items.forEach(it => { it.hidden = f !== "all" && !it.dataset.cat.split(" ").includes(f); });
+  });
+});
+// education: fill the degree bar up to today
+document.querySelectorAll(".progress[data-start]").forEach(p => {
+  const s = Date.parse(p.dataset.start), e = Date.parse(p.dataset.end);
+  const pct = Math.min(100, Math.max(0, (Date.now() - s) / (e - s) * 100));
+  p.firstElementChild.style.width = pct.toFixed(1) + "%";
+});
 // shrinks the hero title only when the longest role and its icon would not fit its column,
 // so every role stays on one line and the title never jumps while it types
 (() => {

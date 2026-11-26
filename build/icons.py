@@ -35,10 +35,17 @@ icons = {
  "tensorflow": DV+"tensorflow/tensorflow-original.svg", "pytorch": DV+"pytorch/pytorch-original.svg",
  "pydantic": SI+"pydantic.svg",
  "huggingface": SI+"huggingface.svg", "langchain": SI+"langchain.svg", "ollama": SI+"ollama.svg",
+ "coursera": SI+"coursera.svg", "colab": SI+"googlecolab.svg", "tableau": SI+"tableau.svg",
+ "excel": LU+"sheet.svg", "powerbi": LU+"chart-column-big.svg",  # no Excel or Power BI logo on the icon CDNs
  "databricks": SI+"databricks.svg", "pyspark": DV+"apachespark/apachespark-original.svg",
  "linkedin": DV+"linkedin/linkedin-original.svg", "email": LU+"mail.svg",
+ # section icons for the skills, experience and education pages
+ "i_code": LU+"code-xml.svg", "i_server": LU+"server.svg", "i_cloud": LU+"cloud-cog.svg", "i_ai": LU+"brain-circuit.svg",
+ "i_db": LU+"database.svg", "i_frontend": LU+"monitor-smartphone.svg", "i_test": LU+"flask-conical.svg",
+ "i_tools": LU+"wrench.svg", "i_data": LU+"chart-column.svg", "i_ideas": LU+"lightbulb.svg", "i_star": LU+"star.svg",
+ "i_grad": LU+"graduation-cap.svg", "i_school": LU+"school.svg", "i_cert": LU+"badge-check.svg", "i_trophy": LU+"trophy.svg",
 }
-brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621", "huggingface": "#FFD21E", "langchain": "#1C3C3C", "pydantic": "#E92063"}
+brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621", "huggingface": "#FFD21E", "langchain": "#1C3C3C", "pydantic": "#E92063", "colab": "#F9AB00", "tableau": "#E97627", "coursera": "#0056D2"}
 out, bad = {}, []
 for k, url in icons.items():
     try:
