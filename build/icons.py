@@ -22,18 +22,23 @@ icons = {
  "git": DV+"git/git-original.svg", "github": DV+"github/github-original.svg",
  "githubactions": DV+"githubactions/githubactions-original.svg", "jenkins": DV+"jenkins/jenkins-original.svg",
  "docker": DV+"docker/docker-original.svg", "linux": DV+"ubuntu/ubuntu-original.svg",
- "kubernetes": DV+"kubernetes/kubernetes-original.svg", "terraform": DV+"terraform/terraform-original.svg",
+ "kubernetes": DV+"kubernetes/kubernetes-original.svg", "nginx": DV+"nginx/nginx-original.svg", "terraform": DV+"terraform/terraform-original.svg",
  "llm": LU+"brain-circuit.svg", "rag": LU+"file-search.svg", "embeddings": LU+"chart-scatter.svg",
  "openai": LU+"sparkles.svg",
  "vscode": DV+"vscode/vscode-original.svg", "canva": DV+"canva/canva-original.svg", "antigravity": LU+"rocket.svg",  # no Antigravity logo on the icon CDNs yet
  "swagger": DV+"swagger/swagger-original.svg", "postman": DV+"postman/postman-original.svg", "n8n": SI+"n8n.svg",
  "oop": LU+"blocks.svg", "dbms": LU+"database-zap.svg", "mvc": LU+"layers.svg", "http": LU+"arrow-left-right.svg",
  "restfund": LU+"globe.svg", "cicd": LU+"infinity.svg",
+ "chunking": LU+"scissors.svg", "orchestration": LU+"workflow.svg", "finetuning": LU+"sliders-horizontal.svg",
+ "sklearn": DV+"scikitlearn/scikitlearn-original.svg", "numpy": DV+"numpy/numpy-original.svg",
+ "pandas": DV+"pandas/pandas-original.svg", "matplotlib": DV+"matplotlib/matplotlib-original.svg",
+ "tensorflow": DV+"tensorflow/tensorflow-original.svg", "pytorch": DV+"pytorch/pytorch-original.svg",
+ "pydantic": SI+"pydantic.svg",
  "huggingface": SI+"huggingface.svg", "langchain": SI+"langchain.svg", "ollama": SI+"ollama.svg",
  "databricks": SI+"databricks.svg", "pyspark": DV+"apachespark/apachespark-original.svg",
  "linkedin": DV+"linkedin/linkedin-original.svg", "email": LU+"mail.svg",
 }
-brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621", "huggingface": "#FFD21E", "langchain": "#1C3C3C"}
+brand = {"celery": "#37814A", "n8n": "#EA4B71", "databricks": "#FF3621", "huggingface": "#FFD21E", "langchain": "#1C3C3C", "pydantic": "#E92063"}
 out, bad = {}, []
 for k, url in icons.items():
     try:

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sandhya R: software developer in Chennai</title>
+<title>Sandhya R: software developer, DevOps and AI engineer</title>
 <meta name="description" content="Sandhya R, software developer in Chennai: backend services and AI apps with Python, FastAPI, React, PostgreSQL, AWS, LLMs and RAG.">
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
@@ -36,10 +36,18 @@
   .hero--split .hero__media { aspect-ratio: 1 / 1; height: auto; align-self: start; border-radius: 50%; }
 }
 @media (max-width: 639px) {
-  .hero--split .hero__media { flex: 0 0 auto; width: 260px; aspect-ratio: 1 / 1; min-height: 0; border-radius: 50%; }
+  .hero--split .hero__media { flex: 0 0 auto; width: min(300px, 100%); aspect-ratio: 1 / 1; min-height: 0; border-radius: 50%; margin-inline: auto; }
+  /* the home page is only the intro, so on a phone it can grow past one screen and keep the three facts */
+  main > .hero { height: auto; min-height: 100svh; }
+  .hero > .wrap { height: auto; }
+  .hero .hero-facts { display: grid; margin-top: var(--s-5); }
+  /* the longest role (Software Developer) and its cursor stay on one line, so the title never jumps */
+  #hero-h { font-size: min(40px, calc((100vw - 48px) * 0.112)); }
+  .typed { white-space: nowrap; }
+  /* education and certificates: the year or issuer goes under the name instead of squeezing it */
+  #education .rows > li { grid-template-columns: minmax(0, 1fr); }
+  #education .rows__value { grid-column: 1; grid-row: auto; text-align: left; color: var(--muted); font-size: var(--t-small); }
 }
-/* below 1024 the project cards keep their summary, tools and link; the bullet details stay on desktop */
-@media (max-width: 1023px) { .proj .points { display: none; } }
 
 /* short laptop windows and phones: a section grows past its screen rather than slide under the next one
    (the kit already does this from 640 to 1279 wide) */
@@ -80,6 +88,12 @@
 /* with pictures the project sections can run taller than two screens, so they grow instead of clipping */
 #projects, #more-projects { height: auto; min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
 #projects > .wrap, #more-projects > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+/* each inner page opens under the fixed nav with its own heading and grows with its content */
+main > .section.page-top { padding-top: calc(var(--nav) + var(--section)); height: auto; min-height: 100svh; display: flex; flex-direction: column; }
+main > .section.page-top > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+.page-head h1 { font: var(--display-weight) clamp(2.75rem, 6vw, 4.5rem)/1.05 var(--font-display); letter-spacing: var(--display-tracking-xl); margin: 0; }
+.page-head > .link { justify-self: start; }
+main > .section.page-top .page-head { margin-bottom: var(--s-7); }
 .proj > .proj__shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: var(--r-md); border: 1px solid var(--line); margin-bottom: var(--s-2); }
 #education .card { gap: var(--s-5); }
 #education .rows__name { font-size: var(--t-lead); }
@@ -94,17 +108,18 @@
 </head>
 <body>
 <!-- type: service (a developer people hire)
-     deal: hero split (photo), nav nav-split, close close-type, footer footer-columns, rhythm dark-band (experience),
+     deal: hero split (photo), nav nav-split, close close-type, footer footer-columns, rhythm one page per section,
      buttons tonal, mark wordmark, palette brand (her maroon), type hanken. No grounds, effects or moments (kind other). -->
 
 <header class="nav nav--split">
   <div class="wrap nav__bar">
-    <a class="nav__logo" href="#top">Sandhya R</a>
+    <a class="nav__logo" href="index.html">Sandhya R</a>
     <nav class="nav__links" aria-label="Main">
-      <div class="nav__item"><a class="nav__link" href="#skills">Skills</a></div>
-      <div class="nav__item"><a class="nav__link" href="#experience">Experience</a></div>
-      <div class="nav__item"><a class="nav__link" href="#projects">Projects</a></div>
-      <div class="nav__item"><a class="nav__link" href="#education">Education</a></div>
+      <div class="nav__item"><a class="nav__link" href="index.html"{{current:home}}>Home</a></div>
+      <div class="nav__item"><a class="nav__link" href="skills.html"{{current:skills}}>Skills</a></div>
+      <div class="nav__item"><a class="nav__link" href="experience.html"{{current:experience}}>Experience</a></div>
+      <div class="nav__item"><a class="nav__link" href="projects.html"{{current:projects}}>Projects</a></div>
+      <div class="nav__item"><a class="nav__link" href="education.html"{{current:education}}>Education</a></div>
     </nav>
     <div class="nav__actions">
       <a class="nav__link" href="assets/Sandhya-R-Resume.pdf" target="_blank" rel="noopener">Resume</a>
@@ -117,12 +132,13 @@
 </header>
 
 <main id="top">
+<!--home-->
   <section class="hero hero--split" aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-6">
         <p class="hero__kicker">Open to entry-level and fresher roles</p>
-        <h1 id="hero-h" aria-label="Sandhya R, Software Developer and DevOps Engineer">Sandhya R,<br><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer">Software Developer</span></h1>
-        <p class="hero__lead">I build backend services and AI apps in Chennai with Python, FastAPI, React and PostgreSQL. Full-Stack Developer Intern at Finstein Advizory since July 2026.</p>
+        <h1 id="hero-h" aria-label="Sandhya R, Software Developer, DevOps Engineer and AI Engineer">Sandhya R,<br><span class="typed" aria-hidden="true" data-words="Software Developer|DevOps Engineer|AI Engineer">Software Developer</span></h1>
+        <p class="hero__lead">I build backend services and AI apps in Chennai with Python, FastAPI and PostgreSQL, and deploy them with Docker, CI/CD and AWS. Full-Stack Developer Intern at Finstein Advizory since July 2026.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="mailto:sandhyasubha192005@gmail.com">Email me<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
           <a class="btn btn--secondary" href="assets/Sandhya-R-Resume.pdf" download="Sandhya-R-Resume.pdf">Download resume</a>
@@ -142,31 +158,37 @@
       </div>
     </div></div>
   </section>
-
-  <section class="section" id="skills" style="--hm: 2" aria-labelledby="skills-h">
+<!--/home-->
+<!--skills-->
+  <section class="section page-top" id="skills" aria-labelledby="skills-h">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="skills-h">Skills and tools</h2>
+      <div class="section-head page-head">
+        <a class="link" href="index.html">Back to home</a>
+        <h1 id="skills-h">Skills and tools</h1>
+        <p>The languages, frameworks and tools I use across software development, DevOps and AI engineering.</p>
       </div>
       <ul class="rows cols">
         <li><span class="rows__name">Languages</span><ul class="tech">{{chip:python|Python}}{{chip:java|Java}}{{chip:javascript|JavaScript}}{{chip:typescript|TypeScript}}{{chip:sql|SQL}}</ul></li>
-        <li><span class="rows__name">Frontend</span><ul class="tech">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul></li>
         <li><span class="rows__name">Backend</span><ul class="tech">{{chip:fastapi|FastAPI}}{{chip:django|Django}}{{chip:rest|RESTful APIs}}{{chip:celery|Celery}}{{chip:nodejs|Node.js}}{{chip:express|Express.js}}</ul></li>
+        <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:linux|Linux (Ubuntu)}}{{chip:aws|AWS (S3, IAM, EC2, RDS)}}{{chip:cicd|CI/CD}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}{{chip:docker|Docker}}{{chip:docker|Docker Compose}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}{{chip:nginx|Nginx}}</ul></li>
+        <li><span class="rows__name">AI technologies</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:orchestration|AI Orchestration}}{{chip:chunking|Chunking}}{{chip:ollama|Ollama}}{{chip:embeddings|Embeddings}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:openai|OpenAI API}}{{chip:finetuning|Fine-tuning}}{{chip:sklearn|scikit-learn}}{{chip:numpy|NumPy}}{{chip:pandas|pandas}}{{chip:matplotlib|Matplotlib}}{{chip:tensorflow|TensorFlow}}{{chip:pytorch|PyTorch}}{{chip:pydantic|Pydantic}}</ul></li>
         <li><span class="rows__name">Databases and caching</span><ul class="tech">{{chip:postgresql|PostgreSQL}}{{chip:mongodb|MongoDB}}{{chip:redis|Redis}}{{chip:vectordb|Vector databases}}{{chip:django|Django ORM}}{{chip:sqlalchemy|SQLAlchemy}}{{chip:mysql|MySQL}}{{chip:sqlite|SQLite}}</ul></li>
+        <li><span class="rows__name">Frontend</span><ul class="tech">{{chip:html|HTML5}}{{chip:css|CSS3}}{{chip:react|React.js}}{{chip:nextjs|Next.js}}{{chip:tailwind|Tailwind CSS}}{{chip:threejs|Three.js}}</ul></li>
         <li><span class="rows__name">Testing and automation</span><ul class="tech">{{chip:pytest|pytest}}{{chip:playwright|Playwright}}</ul></li>
-        <li><span class="rows__name">Cloud, CI/CD and DevOps</span><ul class="tech">{{chip:linux|Linux (Ubuntu)}}{{chip:aws|AWS (S3, IAM, EC2, RDS)}}{{chip:cicd|CI/CD}}{{chip:git|Git}}{{chip:github|GitHub}}{{chip:githubactions|GitHub Actions}}{{chip:jenkins|Jenkins}}{{chip:docker|Docker}}{{chip:docker|Docker Compose}}{{chip:kubernetes|Kubernetes}}{{chip:terraform|Terraform}}</ul></li>
-        <li><span class="rows__name">AI technologies</span><ul class="tech">{{chip:llm|LLMs}}{{chip:rag|RAG}}{{chip:ollama|Ollama}}{{chip:embeddings|Embeddings}}{{chip:huggingface|Hugging Face}}{{chip:langchain|LangChain}}{{chip:openai|OpenAI API}}</ul></li>
         <li><span class="rows__name">Developer tools and workflow automation</span><ul class="tech">{{chip:vscode|VS Code}}{{chip:antigravity|Antigravity}}{{chip:canva|Canva}}{{chip:swagger|Swagger UI}}{{chip:postman|Postman}}{{chip:n8n|n8n}}</ul></li>
-        <li><span class="rows__name">Core concepts</span><ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul></li>
         <li><span class="rows__name">Data engineering</span><ul class="tech">{{chip:databricks|Databricks}}{{chip:pyspark|PySpark}}</ul></li>
+        <li><span class="rows__name">Core concepts</span><ul class="tech">{{chip:oop|OOP}}{{chip:dbms|DBMS}}{{chip:mvc|MVC architecture}}{{chip:http|HTTP methods}}{{chip:restfund|REST API fundamentals}}{{chip:cicd|CI/CD fundamentals}}</ul></li>
       </ul>
     </div>
   </section>
-
-  <section class="section ground-inverse" id="experience" style="--hm: 2" aria-labelledby="experience-h">
+<!--/skills-->
+<!--experience-->
+  <section class="section page-top" id="experience" aria-labelledby="experience-h">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="experience-h">Work experience</h2>
+      <div class="section-head page-head">
+        <a class="link" href="index.html">Back to home</a>
+        <h1 id="experience-h">Work experience</h1>
+        <p>Four internships in full-stack development, MERN stack development, IT systems and data analytics.</p>
       </div>
       <ol class="rows cols">
         <li class="job">
@@ -204,9 +226,15 @@
       </ol>
     </div>
   </section>
-
-  <section class="section" id="projects" aria-labelledby="projects-h">
+<!--/experience-->
+<!--projects-->
+  <section class="section page-top" id="projects" aria-labelledby="page-h">
     <div class="wrap">
+      <div class="section-head page-head">
+        <a class="link" href="index.html">Back to home</a>
+        <h1 id="page-h">Projects</h1>
+        <p>Ten projects I built, from AI apps and workflow automation to full-stack web apps. Each one links to its source on GitHub.</p>
+      </div>
       <div class="group">
         <div class="section-head">
           <h2 id="projects-h">AI and workflow automation projects</h2>
@@ -218,24 +246,24 @@
             <h3>Employee wellbeing and activity monitoring</h3>
             <p>A desktop agent and server that track work activity and send wellbeing reminders. I built it with a team of six and made 14 commits.</p>
             <ul class="points">
-              <li>Activity monitoring with encrypted local storage, automatic sync and retry handling.</li>
-              <li>FastAPI and PostgreSQL APIs for activity tracking, employee dashboards and AI wellbeing reminders.</li>
-              <li>Compared 2 LLMs (Qwen 3 and OpenAI) on identical prompts and chose OpenAI, with 95% positive evaluations.</li>
+              <li>Developed an activity monitoring system with encrypted local storage, automatic synchronisation and retry handling.</li>
+              <li>Built FastAPI APIs with PostgreSQL and an AI orchestrator for agent selection and coordination, enabling activity tracking, employee dashboards and AI-powered wellbeing reminders.</li>
+              <li>Evaluated 2 LLMs (Qwen 3 and OpenAI) on identical prompts and selected OpenAI for its response quality, achieving <strong>95% positive evaluation</strong> results.</li>
             </ul>
-            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React}}{{tag:typescript|TypeScript}}{{tag:docker|Docker}}{{tag:pytest|pytest}}{{tag:githubactions|GitHub Actions}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
+            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:typescript|TypeScript}}{{tag:ollama|Ollama}}<li class="plain">Qwen 3</li>{{tag:openai|OpenAI API (gpt-5.6-luna)}}</ul>
             <a class="link" href="https://github.com/Suba-kumar09/health-agent">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
             <img class="proj__shot" src="assets/img/projects/food-nutrition.svg" alt="Meal photo with AI calorie estimate" width="640" height="400" loading="lazy">
             <p class="t-label muted">AI · Full-stack</p>
             <h3>Food and nutrition tracking system</h3>
-            <p>An AI food tracker that estimates calories from a meal photo and gives personalised nutrition advice.</p>
+            <p>An AI-powered food tracking app with image-based food analysis, calorie estimation and personalised nutrition recommendations.</p>
             <ul class="points">
-              <li>FastAPI APIs for login, meal tracking, food image analysis and water tracking, with PostgreSQL and AWS S3.</li>
-              <li>Tested the image analysis: 75% of calorie estimates were satisfactory.</li>
-              <li>Automated, tested meal and water reminders.</li>
+              <li>Built FastAPI APIs for authentication, meal tracking, food image analysis and water management, integrating PostgreSQL and AWS S3.</li>
+              <li>Tested the food image analysis and achieved <strong>75% satisfactory calorie estimation</strong> results.</li>
+              <li>Implemented and tested automated meal and water reminders.</li>
             </ul>
-            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3 / RDS}}<li class="plain">Boto3</li>{{tag:react|React}}</ul>
+            <ul class="tech">{{tag:python|Python}}{{tag:fastapi|FastAPI}}{{tag:postgresql|PostgreSQL}}{{tag:react|React.js}}{{tag:openai|OpenAI API (gpt-5.6-luna)}}{{tag:aws|AWS S3}}<li class="plain">Boto3</li></ul>
             <a class="link" href="https://github.com/Sandhya192005/Food-Agent">See the source on GitHub</a>
           </article>
           <article class="card proj span-4">
@@ -244,11 +272,11 @@
             <h3>Cargo shipment email automation</h3>
             <p>An n8n workflow that turns shipment emails into records and customer reports, using Claude AI.</p>
             <ul class="points">
-              <li>Monitors and processes incoming cargo shipment emails from Microsoft Outlook.</li>
-              <li>Extracts customer names, container numbers, ports, vessels, ETD, ETA and shipment status.</li>
-              <li>Matches customers against master Excel records and builds per-customer reports, cutting manual work by 82%.</li>
+              <li>Developed an n8n workflow to monitor and process incoming cargo shipment emails from Microsoft Outlook.</li>
+              <li>Automated extraction of shipment details: customer names, container numbers, ports, vessel details, ETD, ETA and shipment status.</li>
+              <li>Matched customers against master Excel records and generated customer-specific shipment reports, <strong>reducing manual processing effort by 82%</strong>.</li>
             </ul>
-            <ul class="tech">{{tag:n8n|n8n}}{{tag:llm|Claude AI}}<li class="plain">Outlook</li><li class="plain">Excel 365</li><li class="plain">OneDrive</li></ul>
+            <ul class="tech">{{tag:n8n|n8n}}<li class="plain">Microsoft Outlook</li>{{tag:llm|Claude AI}}<li class="plain">Excel</li><li class="plain">OneDrive</li></ul>
             <a class="link" href="https://github.com/Sandhya192005/Cargo-Email-Automation">See the source on GitHub</a>
           </article>
         </div>
@@ -358,11 +386,14 @@
       </div>
     </div>
   </section>
-
-  <section class="section" id="education" aria-labelledby="education-h">
+<!--/projects-->
+<!--education-->
+  <section class="section page-top" id="education" aria-labelledby="education-h">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="education-h">Education and certificates</h2>
+      <div class="section-head page-head">
+        <a class="link" href="index.html">Back to home</a>
+        <h1 id="education-h">Education and certificates</h1>
+        <p>My degree, schooling, certificates and awards.</p>
       </div>
       <div class="grid">
         <div class="card m-nolift span-6">
@@ -384,6 +415,7 @@
       </div>
     </div>
   </section>
+<!--/education-->
 </main>
 
 <footer class="footer closing ground-inverse footer--dark" id="contact" aria-labelledby="close-h">
@@ -391,17 +423,17 @@
     <div class="closing__cta close--type">
       <div class="section-head">
         <h2 id="close-h">Email me about a role</h2>
-        <p>I'm looking for entry-level and fresher roles in backend, full-stack or AI engineering. Email is the fastest way to reach me.</p>
+        <p>I'm looking for entry-level and fresher roles in software development, DevOps or AI engineering. Email is the fastest way to reach me.</p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="mailto:sandhyasubha192005@gmail.com">Email me<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
     </div>
     <div class="closing__links">
       <div class="grid">
         <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top">Sandhya R</a>
-          <p class="footer__lede">Software developer in Chennai. Python, FastAPI, React, PostgreSQL, AWS, LLMs and RAG.</p>
+          <a class="nav__logo" href="index.html">Sandhya R</a>
+          <p class="footer__lede">Software developer, DevOps engineer and AI engineer in Chennai. Python, FastAPI, PostgreSQL, Docker, AWS, LLMs and RAG.</p>
         </div>
-        <div class="span-2 start-6 footer__col"><h4>Sections</h4><ul><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#education">Education</a></li></ul></div>
+        <div class="span-2 start-6 footer__col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="skills.html">Skills</a></li><li><a href="experience.html">Experience</a></li><li><a href="projects.html">Projects</a></li><li><a href="education.html">Education</a></li></ul></div>
         <div class="span-2 start-8 footer__col"><h4>Profiles</h4><ul><li><a href="https://github.com/Sandhya192005">GitHub</a></li><li><a href="https://linkedin.com/in/sandhya192005">LinkedIn</a></li></ul></div>
         <div class="span-3 start-10 footer__col"><h4>Contact</h4><ul><li><a href="mailto:sandhyasubha192005@gmail.com">sandhyasubha192005@gmail.com</a></li></ul></div>
       </div>
